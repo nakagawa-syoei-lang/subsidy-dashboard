@@ -16,37 +16,41 @@ HEADERS = {"Accept": "application/json"}
 
 KANTO_PREFS = ["東京都", "神奈川県", "埼玉県", "千葉県"]
 
-def fetch_subsidies(keyword="", limit=100, offset=0, area=""):
+KEYWORDS = [
+    "補助金", "助成金", "支援金", "給付金",
+    "東京都", "神奈川県", "埼玉県", "千葉県",
+    "IT導入", "DX", "ものづくり", "創業", "雇用",
+    "省エネ", "事業再構築", "販路", "設備",
+]
+
+def fetch_subsidies(keyword, limit=100, offset=0):
     params = {
+        "keyword": keyword,
         "sort": "created_date",
         "order": "DESC",
         "limit": limit,
         "offset": offset,
     }
-    if keyword:
-        params["keyword"] = keyword
-    if area:
-        params["target_area_search"] = area
     try:
         res = requests.get(BASE_URL, headers=HEADERS, params=params, timeout=30)
         res.raise_for_status()
         return res.json()
     except Exception as e:
-        logger.warning(f"API取得失敗 ({area or keyword or '全件'}): {e}")
+        logger.warning(f"API取得失敗 (keyword={keyword}): {e}")
         return None
 
 def get_pref(target_area):
-    """target_area_searchから都道府県を抽出"""
     if not target_area:
         return "全国"
-    # 「東京都 / 大阪府」のような形式を処理
     parts = [p.strip() for p in str(target_area).replace("　", " ").split("/")]
     for p in parts:
-        if p in KANTO_PREFS:
-            return p
-    # 1都3県以外は最初の都道府県を返す
-    if parts and parts[0]:
-        return parts[0]
+        p = p.strip()
+        for kanto in KANTO_PREFS:
+            if kanto in p:
+                return kanto
+        for suffix in ["都", "道", "府", "県"]:
+            if p.endswith(suffix) and len(p) >= 3:
+                return p
     return "全国"
 
 def classify(title, use_purpose=""):
@@ -78,7 +82,6 @@ def convert_item(item):
     url = item.get("front_subsidy_detail_page_url", "") or \
           f"https://www.jgrants-portal.go.jp/subsidy/{subsidy_id}"
 
-    # 補助金額
     amount = ""
     upper = item.get("subsidy_max_limit")
     if upper:
@@ -87,7 +90,6 @@ def convert_item(item):
         except Exception:
             amount = str(upper)
 
-    # 申請期限
     deadline = ""
     end_date = item.get("acceptance_end_datetime", "") or ""
     if end_date and len(end_date) >= 10:
@@ -98,14 +100,10 @@ def convert_item(item):
         except Exception:
             deadline = end_date[:10]
 
-    # 都道府県
     target_area = item.get("target_area_search", "") or ""
     pref = get_pref(target_area)
+    org = item.get("government_name", "") or "国・自治体"
 
-    # 実施機関
-    org = item.get("government_name", "") or item.get("acceptance_agency", "") or "国・自治体"
-
-    # ソース種別（1都3県 or 他自治体 → 自治体、それ以外 → 国・省庁）
     if pref in KANTO_PREFS:
         source = "自治体"
     elif pref != "全国" and pref:
@@ -130,62 +128,42 @@ def convert_item(item):
         "date": str(date.today()),
     }
 
-def fetch_all_pages(area="", keyword=""):
-    """全ページを取得"""
-    items = []
-    seen_ids = set()
-    offset = 0
-    while True:
-        data = fetch_subsidies(keyword=keyword, limit=100, offset=offset, area=area)
-        if not data:
-            break
-        result = data.get("result", []) or []
-        if not result:
-            break
-        for item in result:
-            sid = str(item.get("id", ""))
-            if sid and sid not in seen_ids:
-                seen_ids.add(sid)
-                items.append(convert_item(item))
-        total = int((data.get("metadata", {}) or {}).get("resultset", {}).get("count", 0) or 0)
-        logger.info(f"  取得済: {len(items)}件 / 全{total}件 (offset={offset})")
-        if total == 0 or offset + 100 >= total:
-            break
-        offset += 100
-        time.sleep(0.5)
-    return items, seen_ids
-
 def main():
     all_items = []
     seen_ids = set()
 
-    # 1. 全国の補助金を全件取得
-    logger.info("=== 全国の補助金を取得 ===")
-    national_items, national_seen = fetch_all_pages()
-    seen_ids.update(national_seen)
-    all_items.extend(national_items)
-    logger.info(f"全国: {len(national_items)}件")
+    for kw in KEYWORDS:
+        logger.info(f"キーワード検索: {kw}")
+        offset = 0
+        while True:
+            data = fetch_subsidies(keyword=kw, limit=100, offset=offset)
+            if not data:
+                break
+            result = data.get("result", []) or []
+            if not result:
+                break
+            added = 0
+            for item in result:
+                sid = str(item.get("id", ""))
+                if sid and sid not in seen_ids:
+                    seen_ids.add(sid)
+                    all_items.append(convert_item(item))
+                    added += 1
+            total = int((data.get("metadata", {}) or {}).get("resultset", {}).get("count", 0) or 0)
+            logger.info(f"  {kw}: +{added}件 (計{len(all_items)}件, total={total})")
+            if total == 0 or offset + 100 >= total:
+                break
+            offset += 100
+            time.sleep(0.5)
+        time.sleep(0.8)
 
-    # 2. 1都3県を個別取得
-    logger.info("=== 1都3県の補助金を取得 ===")
-    kanto_items = []
-    for pref in KANTO_PREFS:
-        logger.info(f"  {pref}を取得中...")
-        items, new_seen = fetch_all_pages(area=pref)
-        added = 0
-        for item in items:
-            if item["id"] not in seen_ids:
-                seen_ids.add(item["id"])
-                kanto_items.append(item)
-                added += 1
-        logger.info(f"  {pref}: {added}件追加")
-        time.sleep(1)
+    # 1都3県を先頭に並べ替え
+    kanto = [x for x in all_items if x["pref"] in KANTO_PREFS]
+    others = [x for x in all_items if x["pref"] not in KANTO_PREFS]
+    all_items = kanto + others
 
-    # 1都3県を先頭に配置
-    all_items = kanto_items + all_items
-    logger.info(f"収集完了: {len(all_items)}件（うち1都3県: {len(kanto_items)}件）")
+    logger.info(f"収集完了: {len(all_items)}件（うち1都3県: {len(kanto)}件）")
 
-    # 既存データと統合
     existing = []
     if HISTORY_FILE.exists():
         with open(HISTORY_FILE, encoding="utf-8") as f:
