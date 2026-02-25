@@ -21,10 +21,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: ライブラリをインストール
-        run: pip install requests beautifulsoup4 pandas lxml
+        run: pip install requests beautifulsoup4 lxml
 
       - name: 補助金情報を収集
         run: python scripts/collect.py
