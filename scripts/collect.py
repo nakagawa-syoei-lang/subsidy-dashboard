@@ -17,23 +17,27 @@ HEADERS = {"Accept": "application/json"}
 KANTO_PREFS = ["東京都", "神奈川県", "埼玉県", "千葉県"]
 
 KEYWORDS = [
-    "補助金", "助成金", "支援金", "給付金",
-    "東京都", "神奈川県", "埼玉県", "千葉県",
+    "補助金", "助成金", "支援金",
     "IT導入", "DX", "ものづくり", "創業", "雇用",
     "省エネ", "事業再構築", "販路", "設備",
+    "東京", "神奈川", "埼玉", "千葉",
 ]
 
 def fetch_subsidies(keyword, limit=100, offset=0):
     params = {
         "keyword": keyword,
-        "sort": "created_date",
+        "sort": "id",
         "order": "DESC",
         "limit": limit,
         "offset": offset,
     }
     try:
         res = requests.get(BASE_URL, headers=HEADERS, params=params, timeout=30)
-        res.raise_for_status()
+        logger.info(f"  URL: {res.url}")
+        logger.info(f"  Status: {res.status_code}")
+        if res.status_code != 200:
+            logger.warning(f"  Response: {res.text[:200]}")
+            return None
         return res.json()
     except Exception as e:
         logger.warning(f"API取得失敗 (keyword={keyword}): {e}")
@@ -157,7 +161,6 @@ def main():
             time.sleep(0.5)
         time.sleep(0.8)
 
-    # 1都3県を先頭に並べ替え
     kanto = [x for x in all_items if x["pref"] in KANTO_PREFS]
     others = [x for x in all_items if x["pref"] not in KANTO_PREFS]
     all_items = kanto + others
