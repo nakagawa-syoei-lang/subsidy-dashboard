@@ -1,0 +1,43 @@
+name: 毎日補助金情報を収集・公開
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 毎日 UTC 0:00 = 日本時間 9:00
+  workflow_dispatch:       # 手動実行ボタンも有効
+
+permissions:
+  contents: write          # ファイルをコミットするために必要
+
+jobs:
+  collect-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # 1. リポジトリをチェックアウト
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      # 2. Pythonをセットアップ
+      - name: Python 3.11 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # 3. 依存ライブラリをインストール
+      - name: ライブラリをインストール
+        run: pip install requests beautifulsoup4 pandas lxml
+
+      # 4. 収集スクリプトを実行（JSON生成）
+      - name: 補助金情報を収集
+        run: python scripts/collect.py
+
+      # 5. 収集結果をコミット・プッシュ
+      - name: 収集データをコミット
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data.json docs/last_updated.txt
+          git diff --staged --quiet || git commit -m "📊 補助金データ更新 $(date +'%Y-%m-%d')"
+          git push
