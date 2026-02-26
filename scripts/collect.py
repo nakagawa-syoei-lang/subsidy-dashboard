@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import requests
-from bs4 import BeautifulSoup
-import json, re, time, logging
+import xml.etree.ElementTree as ET
+import json, time, logging, re
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -11,11 +11,55 @@ logger = logging.getLogger(__name__)
 
 HISTORY_FILE = Path("docs/data.json")
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "ja,en-US;q=0.9",
+    "User-Agent": "Mozilla/5.0 (compatible; SubsidyBot/1.0)",
+    "Accept": "application/rss+xml, application/xml, text/xml, */*",
 }
 KANTO_PREFS = ["東京都", "神奈川県", "埼玉県", "千葉県"]
+
+RSS_SOURCES = [
+    # ミラサポplus RSS（補助金・助成金）
+    ("https://mirasapo-plus.go.jp/rss_feed/subsidy/", "中小企業庁"),
+    ("https://mirasapo-plus.go.jp/rss_feed/", "中小企業庁"),
+    # 経済産業省
+    ("https://www.meti.go.jp/rss/press.rdf", "経済産業省"),
+    # 中小企業庁
+    ("https://www.chusho.meti.go.jp/rss/index.rdf", "中小企業庁"),
+    # 厚生労働省
+    ("https://www.mhlw.go.jp/rss/shinsei/shinsei_14.rdf", "厚生労働省"),
+    # 東京都
+    ("https://www.metro.tokyo.lg.jp/rss/metro_news.rss", "東京都"),
+    ("https://www.sangyo-rodo.metro.tokyo.lg.jp/rss/news.xml", "東京都産業労働局"),
+    # 神奈川県
+    ("https://www.pref.kanagawa.jp/rss/rss_news_13.rss", "神奈川県"),
+    # 埼玉県
+    ("https://www.pref.saitama.lg.jp/rss/news.rdf", "埼玉県"),
+    # 千葉県
+    ("https://www.pref.chiba.lg.jp/rss/news.rdf", "千葉県"),
+]
+
+SUBSIDY_KEYWORDS = [
+    "補助金","助成金","支援金","給付金","補助","助成","支援事業","公募",
+    "IT導入","DX","ものづくり","持続化","事業再構築","雇用","省エネ",
+]
+
+def is_subsidy(title, desc=""):
+    text = title + " " + (desc or "")
+    return any(kw in text for kw in SUBSIDY_KEYWORDS)
+
+def get_pref(text, org=""):
+    combined = text + " " + org
+    for kanto in KANTO_PREFS:
+        if kanto in combined:
+            return kanto
+    for pref in ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+                 "茨城県","栃木県","群馬県","新潟県","富山県","石川県","福井県",
+                 "山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県",
+                 "京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県",
+                 "岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県",
+                 "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"]:
+        if pref in combined:
+            return pref
+    return "全国"
 
 def classify(title):
     mapping = {
@@ -39,190 +83,82 @@ def classify(title):
             return cat
     return "補助金・助成金（一般）"
 
-def get_pref(text):
-    for kanto in KANTO_PREFS:
-        if kanto in text:
-            return kanto
-    for pref in ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
-                 "茨城県","栃木県","群馬県","新潟県","富山県","石川県","福井県",
-                 "山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県",
-                 "京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県",
-                 "岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県",
-                 "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"]:
-        if pref in text:
-            return pref
-    return "全国"
-
-def scrape_jgrants():
-    """Jグランツのウェブサイトから補助金情報をスクレイピング"""
-    items = []
-    seen_ids = set()
-    
-    # ページ番号を変えながら取得
-    for page in range(1, 15):  # 最大14ページ
-        url = f"https://www.jgrants-portal.go.jp/subsidy/list?page={page}&sort=created_date&order=DESC"
-        try:
-            res = requests.get(url, headers=HEADERS, timeout=20)
-            logger.info(f"Page {page}: {res.status_code}")
-            if res.status_code != 200:
-                break
-            soup = BeautifulSoup(res.text, "lxml")
-            
-            # 補助金カードを探す
-            cards = soup.find_all("div", class_=re.compile(r"subsidy|card|item|list", re.I))
-            if not cards:
-                # リンクから探す
-                links = soup.find_all("a", href=re.compile(r"/subsidy/\w+"))
-                if not links:
-                    logger.info(f"  Page {page}: 補助金情報なし、終了")
-                    break
-                    
-                for a in links:
-                    href = a.get("href", "")
-                    sid = href.split("/")[-1] if href else ""
-                    if not sid or sid in seen_ids or sid == "list":
-                        continue
-                    seen_ids.add(sid)
-                    title = a.get_text(strip=True)
-                    if not title or len(title) < 5:
-                        continue
-                    full_url = f"https://www.jgrants-portal.go.jp{href}" if href.startswith("/") else href
-                    pref = get_pref(title)
-                    items.append({
-                        "id": sid,
-                        "title": title[:120],
-                        "org": "国・自治体",
-                        "pref": pref,
-                        "amount": "",
-                        "deadline": "",
-                        "target": "",
-                        "category": classify(title),
-                        "url": full_url,
-                        "source": "自治体" if pref != "全国" else "国・省庁",
-                        "date": str(date.today()),
-                    })
-            
-            logger.info(f"  Page {page}: 累計{len(items)}件")
-            time.sleep(1.5)
-            
-        except Exception as e:
-            logger.warning(f"  Page {page} エラー: {e}")
-            break
-    
-    return items
-
-def scrape_mirasapo():
-    """ミラサポplusから補助金情報を取得"""
-    items = []
-    seen_ids = set()
-    
-    for page in range(1, 10):
-        url = f"https://mirasapo-plus.go.jp/subsidy/?page={page}"
-        try:
-            res = requests.get(url, headers=HEADERS, timeout=20)
-            logger.info(f"ミラサポ Page {page}: {res.status_code}")
-            if res.status_code != 200:
-                break
-            soup = BeautifulSoup(res.text, "lxml")
-            links = soup.find_all("a", href=re.compile(r"/subsidy/\d+"))
-            if not links:
-                break
-            for a in links:
-                href = a.get("href", "")
-                sid = href.split("/")[-1]
-                if not sid or sid in seen_ids:
-                    continue
-                seen_ids.add(sid)
-                title = a.get_text(strip=True)
-                if not title or len(title) < 5:
-                    continue
-                full_url = f"https://mirasapo-plus.go.jp{href}" if href.startswith("/") else href
-                pref = get_pref(title)
-                items.append({
-                    "id": f"m{sid}",
-                    "title": title[:120],
-                    "org": "中小企業庁",
-                    "pref": pref,
-                    "amount": "",
-                    "deadline": "",
-                    "target": "",
-                    "category": classify(title),
-                    "url": full_url,
-                    "source": "自治体" if pref != "全国" else "国・省庁",
-                    "date": str(date.today()),
-                })
-            logger.info(f"  ミラサポ Page {page}: 累計{len(items)}件")
-            time.sleep(1.5)
-        except Exception as e:
-            logger.warning(f"  ミラサポ Page {page} エラー: {e}")
-            break
-    
-    return items
-
-def scrape_hojyokin_portal():
-    """補助金ポータルから取得"""
-    items = []
+def fetch_rss(url, org):
     try:
-        url = "https://hojyokin-portal.jp/search?category=1"
         res = requests.get(url, headers=HEADERS, timeout=20)
-        logger.info(f"補助金ポータル: {res.status_code}")
-        if res.status_code == 200:
-            soup = BeautifulSoup(res.text, "lxml")
-            links = soup.find_all("a", href=re.compile(r"/subsidy/\d+|/columns/"))
-            seen = set()
-            for a in links:
-                href = a.get("href", "")
-                title = a.get_text(strip=True)
-                if not title or len(title) < 5 or href in seen:
-                    continue
-                seen.add(href)
-                full_url = f"https://hojyokin-portal.jp{href}" if href.startswith("/") else href
-                pref = get_pref(title)
-                items.append({
-                    "id": f"hp{abs(hash(href)) % 100000}",
-                    "title": title[:120],
-                    "org": "補助金ポータル",
-                    "pref": pref,
-                    "amount": "",
-                    "deadline": "",
-                    "target": "",
-                    "category": classify(title),
-                    "url": full_url,
-                    "source": "自治体" if pref != "全国" else "国・省庁",
-                    "date": str(date.today()),
-                })
-        logger.info(f"補助金ポータル: {len(items)}件")
+        logger.info(f"  {org} ({url[-40:]}): {res.status_code}")
+        if res.status_code != 200:
+            return []
+        # XML解析
+        root = ET.fromstring(res.content)
+        ns = {"atom": "http://www.w3.org/2005/Atom"}
+        items = []
+        # RSS 2.0
+        for item in root.iter("item"):
+            title = (item.findtext("title") or "").strip()
+            link = (item.findtext("link") or "").strip()
+            desc = (item.findtext("description") or "").strip()
+            pub = (item.findtext("pubDate") or "").strip()
+            if not title or not link:
+                continue
+            if not is_subsidy(title, desc):
+                continue
+            pref = get_pref(title + desc, org)
+            items.append({
+                "id": abs(hash(link)) % 10**12,
+                "title": title[:120],
+                "org": org[:40],
+                "pref": pref,
+                "amount": "",
+                "deadline": "",
+                "target": "",
+                "category": classify(title),
+                "url": link,
+                "source": "自治体" if pref != "全国" else "国・省庁",
+                "date": str(date.today()),
+            })
+        # Atom
+        for entry in root.iter("{http://www.w3.org/2005/Atom}entry"):
+            title_el = entry.find("{http://www.w3.org/2005/Atom}title")
+            link_el = entry.find("{http://www.w3.org/2005/Atom}link")
+            title = (title_el.text if title_el is not None else "").strip()
+            link = (link_el.get("href","") if link_el is not None else "").strip()
+            if not title or not link:
+                continue
+            if not is_subsidy(title):
+                continue
+            pref = get_pref(title, org)
+            items.append({
+                "id": abs(hash(link)) % 10**12,
+                "title": title[:120],
+                "org": org[:40],
+                "pref": pref,
+                "amount": "",
+                "deadline": "",
+                "target": "",
+                "category": classify(title),
+                "url": link,
+                "source": "自治体" if pref != "全国" else "国・省庁",
+                "date": str(date.today()),
+            })
+        logger.info(f"    → {len(items)}件の補助金情報")
+        return items
     except Exception as e:
-        logger.warning(f"補助金ポータルエラー: {e}")
-    return items
+        logger.warning(f"  エラー ({org}): {e}")
+        return []
 
 def main():
     all_items = []
     seen_ids = set()
 
-    logger.info("=== Jグランツ ウェブスクレイピング ===")
-    jgrants = scrape_jgrants()
-    for item in jgrants:
-        if item["id"] not in seen_ids:
-            seen_ids.add(item["id"])
-            all_items.append(item)
-    logger.info(f"Jグランツ: {len(jgrants)}件")
-
-    logger.info("=== ミラサポplus ===")
-    mirasapo = scrape_mirasapo()
-    for item in mirasapo:
-        if item["id"] not in seen_ids:
-            seen_ids.add(item["id"])
-            all_items.append(item)
-    logger.info(f"ミラサポ: {len(mirasapo)}件")
-
-    logger.info("=== 補助金ポータル ===")
-    portal = scrape_hojyokin_portal()
-    for item in portal:
-        if item["id"] not in seen_ids:
-            seen_ids.add(item["id"])
-            all_items.append(item)
-    logger.info(f"補助金ポータル: {len(portal)}件")
+    for url, org in RSS_SOURCES:
+        items = fetch_rss(url, org)
+        for item in items:
+            sid = str(item["id"])
+            if sid not in seen_ids:
+                seen_ids.add(sid)
+                all_items.append(item)
+        time.sleep(1)
 
     # 1都3県を先頭に
     kanto = [x for x in all_items if x["pref"] in KANTO_PREFS]
