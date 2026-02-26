@@ -111,53 +111,48 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
 SCRAPE_TARGETS = [
     # 東京都
     {
-        "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/support/",
-        "pref": "東京都", "org": "東京都産業労働局",
-    },
-    {
         "url": "https://www.tokyo-kosha.or.jp/support/josei/index.html",
         "pref": "東京都", "org": "東京都中小企業振興公社",
     },
     {
-        "url": "https://metro.tokyo.lg.jp/tosei/hodohappyo/press/index.html",
-        "pref": "東京都", "org": "東京都",
+        "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/support/chusho/",
+        "pref": "東京都", "org": "東京都産業労働局",
+    },
+    {
+        "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/support/",
+        "pref": "東京都", "org": "東京都産業労働局",
     },
     # 神奈川県
     {
-        "url": "https://www.pref.kanagawa.jp/docs/t3u/f533/index.html",
+        "url": "https://www.pref.kanagawa.jp/docs/t3u/f533/",
         "pref": "神奈川県", "org": "神奈川県",
         "title_filter": False,
     },
     {
-        "url": "https://www.pref.kanagawa.jp/docs/t3u/cnt/f533/index.html",
-        "pref": "神奈川県", "org": "神奈川県",
-        "title_filter": False,
-    },
-    {
-        "url": "https://www.pref.kanagawa.jp/osirase/0901001/",
+        "url": "https://www.pref.kanagawa.jp/osirase/0901001",
         "pref": "神奈川県", "org": "神奈川県産業労働局",
     },
     {
-        "url": "https://www.pref.kanagawa.jp/osirase/1025113/",
-        "pref": "神奈川県", "org": "神奈川県",
+        "url": "https://kanagawa-iri.jp/support/",
+        "pref": "神奈川県", "org": "神奈川県産業技術センター",
     },
     # 埼玉県
     {
-        "url": "https://www.pref.saitama.lg.jp/a0801/hojokin/index.html",
+        "url": "https://www.pref.saitama.lg.jp/a0801/hojokin-josei/index.html",
         "pref": "埼玉県", "org": "埼玉県",
     },
     {
-        "url": "https://www.pref.saitama.lg.jp/a0801/index.html",
-        "pref": "埼玉県", "org": "埼玉県産業労働部",
+        "url": "https://www.saitama-j.or.jp/category/subsidy/",
+        "pref": "埼玉県", "org": "埼玉県産業振興公社",
     },
     # 千葉県
     {
-        "url": "https://www.pref.chiba.lg.jp/shinsei/jyosei/index.html",
-        "pref": "千葉県", "org": "千葉県",
-    },
-    {
         "url": "https://www.pref.chiba.lg.jp/keishi/index.html",
         "pref": "千葉県", "org": "千葉県商工労働部",
+    },
+    {
+        "url": "https://www.ccjc-net.or.jp/support/subsidies/",
+        "pref": "千葉県", "org": "千葉県産業振興センター",
     },
 ]
 
