@@ -118,32 +118,32 @@ SCRAPE_TARGETS = [
         "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/support/chusho/",
         "pref": "東京都", "org": "東京都産業労働局",
     },
-    {
-        "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/support/",
-        "pref": "東京都", "org": "東京都産業労働局",
-    },
     # 神奈川県
     {
-        "url": "https://www.pref.kanagawa.jp/docs/t3u/f533/",
+        "url": "https://www.pref.kanagawa.jp/docs/jf2/index.html",
+        "pref": "神奈川県", "org": "神奈川県中小企業支援課",
+    },
+    {
+        "url": "https://www.pref.kanagawa.jp/docs/jf2/dantai/support/2024support.html",
+        "pref": "神奈川県", "org": "神奈川県産業労働局",
+    },
+    {
+        "url": "https://www.pref.kanagawa.jp/menu/5/20/116/index.html",
         "pref": "神奈川県", "org": "神奈川県",
         "title_filter": False,
     },
     {
-        "url": "https://www.pref.kanagawa.jp/osirase/0901001",
-        "pref": "神奈川県", "org": "神奈川県産業労働局",
-    },
-    {
-        "url": "https://kanagawa-iri.jp/support/",
-        "pref": "神奈川県", "org": "神奈川県産業技術センター",
+        "url": "https://startups.pref.kanagawa.jp/supports/relation-grants-and-subsidies/",
+        "pref": "神奈川県", "org": "KANAGAWA STARTUPS",
     },
     # 埼玉県
     {
-        "url": "https://www.pref.saitama.lg.jp/a0801/hojokin-josei/index.html",
+        "url": "https://www.pref.saitama.lg.jp/a0801/kigyoushien_portal.html",
         "pref": "埼玉県", "org": "埼玉県",
     },
     {
-        "url": "https://www.saitama-j.or.jp/category/subsidy/",
-        "pref": "埼玉県", "org": "埼玉県産業振興公社",
+        "url": "https://www.pref.saitama.lg.jp/shigoto/sangyo/kigyo/kigyoshien/index.html",
+        "pref": "埼玉県", "org": "埼玉県産業労働部",
     },
     # 千葉県
     {
@@ -151,8 +151,8 @@ SCRAPE_TARGETS = [
         "pref": "千葉県", "org": "千葉県商工労働部",
     },
     {
-        "url": "https://www.ccjc-net.or.jp/support/subsidies/",
-        "pref": "千葉県", "org": "千葉県産業振興センター",
+        "url": "https://www.pref.chiba.lg.jp/shinsei/jyosei/index.html",
+        "pref": "千葉県", "org": "千葉県",
     },
 ]
 
