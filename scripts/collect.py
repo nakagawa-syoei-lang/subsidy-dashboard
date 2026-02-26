@@ -34,6 +34,8 @@ SUBSIDY_KEYWORDS = [
     "補助金","助成金","支援金","給付金","補助","助成","支援事業","公募",
     "IT導入","DX","ものづくり","持続化","事業再構築","雇用","省エネ",
     "融資","貸付","資金","創業","起業","販路","設備","物価","高騰",
+    "物価高騰","支援について","給付","奨励金","交付金","補填",
+    "医療機関","介護","薬局","病院","診療所",
 ]
 
 def make_id(url):
@@ -53,8 +55,8 @@ def classify(title):
         "研究開発":         ["研究","開発","技術","イノベーション"],
         "融資・貸付":       ["融資","貸付","ローン","資金"],
         "事業再構築":       ["再構築","転換","新事業","多角化"],
-        "物価・光熱費対策": ["物価","光熱費","エネルギー","電気代","燃料","高騰"],
-        "医療・福祉":       ["医療","診療","病院","薬局","介護","福祉"],
+        "物価・光熱費対策": ["物価","光熱費","エネルギー","電気代","燃料","高騰","物価高騰"],
+        "医療・福祉":       ["医療","診療","病院","薬局","介護","福祉","医療機関"],
         "農業・水産":       ["農業","水産","漁業","林業"],
         "観光・飲食":       ["観光","飲食","宿泊","ホテル"],
         "防災・安全":       ["防災","耐震","BCP"],
@@ -64,7 +66,73 @@ def classify(title):
             return cat
     return "補助金・助成金（一般）"
 
-def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
+def extract_deadline(text):
+    """テキストから申請期限を抽出"""
+    if not text:
+        return ""
+
+    # 締切・期限キーワードの近くにある日付を優先
+    deadline_patterns = [
+        # 「締切」「期限」「受付終了」などの近くの日付
+        r'(?:締[切め]|期限|受付終了|申請期間|公募期間|募集期間|応募期限|提出期限).*?'
+        r'令和\s*(\d+)\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
+        r'(?:締[切め]|期限|受付終了|申請期間|公募期間|募集期間|応募期限|提出期限).*?'
+        r'(\d{4})\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
+        # 令和年月日（単体）
+        r'令和\s*(\d+)\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
+        # 西暦年月日
+        r'(\d{4})\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
+        # YYYY-MM-DD
+        r'(\d{4})-(\d{2})-(\d{2})',
+    ]
+
+    for pattern in deadline_patterns:
+        matches = re.findall(pattern, text)
+        if matches:
+            for m in matches:
+                try:
+                    if len(m[0]) <= 2:  # 令和
+                        year = 2018 + int(m[0])
+                    else:
+                        year = int(m[0])
+                    month = int(m[1])
+                    day = int(m[2])
+                    if 2020 <= year <= 2035 and 1 <= month <= 12 and 1 <= day <= 31:
+                        return f"令和{year-2018}年{month}月{day}日締切"
+                except:
+                    continue
+    return ""
+
+def fetch_deadline_from_page(url):
+    """個別ページにアクセスして申請期限を取得"""
+    try:
+        res = requests.get(url, headers=HEADERS, timeout=15)
+        if res.status_code != 200:
+            return ""
+        res.encoding = res.apparent_encoding
+        soup = BeautifulSoup(res.text, "lxml")
+
+        # メインコンテンツ部分を優先して検索
+        main = soup.find("main") or soup.find(id="content") or soup.find(class_="content") or soup
+
+        # 締切関連のキーワードを含む要素を探す
+        deadline_keywords = ["締切","期限","受付終了","申請期間","公募期間","募集期間","受付期間"]
+        for kw in deadline_keywords:
+            for tag in main.find_all(string=re.compile(kw)):
+                parent = tag.parent
+                text = parent.get_text(" ", strip=True)
+                deadline = extract_deadline(text)
+                if deadline:
+                    return deadline
+
+        # ページ全体のテキストから抽出
+        full_text = main.get_text(" ", strip=True)
+        return extract_deadline(full_text)
+    except Exception as e:
+        logger.debug(f"期限取得エラー ({url[-40:]}): {e}")
+        return ""
+
+def scrape_page(url, pref, org, link_pattern=None, title_filter=True, fetch_detail=False):
     items = []
     try:
         res = requests.get(url, headers=HEADERS, timeout=20)
@@ -89,13 +157,22 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
                 continue
             if link_pattern and not re.search(link_pattern, href):
                 continue
+
+            # リンクテキスト周辺から期限を抽出
+            parent_text = ""
+            for p in [a.parent, a.parent.parent if a.parent else None]:
+                if p:
+                    parent_text = p.get_text(" ", strip=True)
+                    break
+            deadline = extract_deadline(parent_text)
+
             items.append({
                 "id": make_id(full_url),
                 "title": title[:120],
                 "org": org,
                 "pref": pref,
                 "amount": "",
-                "deadline": "",
+                "deadline": deadline,
                 "target": "",
                 "category": classify(title),
                 "url": full_url,
@@ -107,8 +184,26 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
         logger.warning(f"  エラー ({org}): {e}")
     return items
 
+def enrich_deadlines(items, max_fetch=60):
+    """期限未取得のアイテムについて個別ページから期限を取得"""
+    no_deadline = [item for item in items if not item.get("deadline")]
+    logger.info(f"期限未取得: {len(no_deadline)}件 → 最大{max_fetch}件を個別取得")
+    fetched = 0
+    for item in no_deadline:
+        if fetched >= max_fetch:
+            break
+        # 国・省庁のJグランツURLはスキップ（期限情報が別途ある）
+        if "jgrants-portal" in item.get("url",""):
+            continue
+        deadline = fetch_deadline_from_page(item["url"])
+        if deadline:
+            item["deadline"] = deadline
+            fetched += 1
+        time.sleep(0.5)
+    logger.info(f"期限取得完了: {fetched}件更新")
+    return items
+
 def scrape_tokyo_portal():
-    """東京都ポータル（全局横断）"""
     items = []
     seen = set()
     target_urls = [
@@ -140,13 +235,19 @@ def scrape_tokyo_portal():
                 if full_url in seen:
                     continue
                 seen.add(full_url)
+                parent_text = ""
+                for p in [a.parent, a.parent.parent if a.parent else None]:
+                    if p:
+                        parent_text = p.get_text(" ", strip=True)
+                        break
+                deadline = extract_deadline(parent_text)
                 items.append({
                     "id": make_id(full_url),
                     "title": title[:120],
                     "org": org,
                     "pref": "東京都",
                     "amount": "",
-                    "deadline": "",
+                    "deadline": deadline,
                     "target": "",
                     "category": classify(title),
                     "url": full_url,
@@ -160,11 +261,8 @@ def scrape_tokyo_portal():
     return items
 
 def scrape_kanagawa_tag(pages=5):
-    """神奈川県タグ検索＋健康医療局"""
     items = []
     seen = set()
-
-    # タグ検索（補助金・助成金・融資）
     base = "https://www.pref.kanagawa.jp/search/tag.html"
     for tag_id in ["26", "27"]:
         for page in range(1, pages + 1):
@@ -194,13 +292,19 @@ def scrape_kanagawa_tag(pages=5):
                         continue
                     seen.add(full_url)
                     found += 1
+                    parent_text = ""
+                    for p in [a.parent, a.parent.parent if a.parent else None]:
+                        if p:
+                            parent_text = p.get_text(" ", strip=True)
+                            break
+                    deadline = extract_deadline(parent_text)
                     items.append({
                         "id": make_id(full_url),
                         "title": title[:120],
                         "org": "神奈川県",
                         "pref": "神奈川県",
                         "amount": "",
-                        "deadline": "",
+                        "deadline": deadline,
                         "target": "",
                         "category": classify(title),
                         "url": full_url,
@@ -216,7 +320,6 @@ def scrape_kanagawa_tag(pages=5):
                 break
         time.sleep(2)
 
-    # 健康医療局（物価高騰支援金などを含む）
     health_urls = [
         ("https://www.pref.kanagawa.jp/div/1336/index.html", "神奈川県健康医療局"),
         ("https://www.pref.kanagawa.jp/menu/2/6/31/index.html", "神奈川県医療政策"),
@@ -247,13 +350,19 @@ def scrape_kanagawa_tag(pages=5):
                     continue
                 seen.add(full_url)
                 found += 1
+                parent_text = ""
+                for p in [a.parent, a.parent.parent if a.parent else None]:
+                    if p:
+                        parent_text = p.get_text(" ", strip=True)
+                        break
+                deadline = extract_deadline(parent_text)
                 items.append({
                     "id": make_id(full_url),
                     "title": title[:120],
                     "org": org,
                     "pref": "神奈川県",
                     "amount": "",
-                    "deadline": "",
+                    "deadline": deadline,
                     "target": "",
                     "category": classify(title),
                     "url": full_url,
@@ -321,7 +430,7 @@ def main():
                 all_new_items.append(item)
         time.sleep(2)
 
-    logger.info("=== 東京都ポータル（保健医療局等含む）===")
+    logger.info("=== 東京都ポータル ===")
     for item in scrape_tokyo_portal():
         if item["id"] not in seen_ids:
             seen_ids.add(item["id"])
@@ -332,6 +441,11 @@ def main():
         if item["id"] not in seen_ids:
             seen_ids.add(item["id"])
             all_new_items.append(item)
+
+    # 期限未取得の自治体アイテムを個別ページから補完
+    logger.info("=== 期限情報を個別ページから補完 ===")
+    local_new = [i for i in all_new_items if i.get("source") == "自治体"]
+    enrich_deadlines(local_new, max_fetch=60)
 
     logger.info(f"新規スクレイピング合計: {len(all_new_items)}件")
 
@@ -361,6 +475,12 @@ def main():
         if item["id"] not in existing_ids:
             existing.insert(0, item)
             existing_ids.add(item["id"])
+        else:
+            # 既存アイテムの期限を更新（新たに取得できた場合）
+            for ex in existing:
+                if ex["id"] == item["id"] and item.get("deadline") and not ex.get("deadline"):
+                    ex["deadline"] = item["deadline"]
+                    break
 
     cutoff = str(date.today() - timedelta(days=90))
     combined = [r for r in existing if r.get("date","") >= cutoff]
