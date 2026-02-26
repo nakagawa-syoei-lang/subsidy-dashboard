@@ -19,6 +19,16 @@ HEADERS = {
 }
 KANTO_PREFS = ["東京都", "神奈川県", "埼玉県", "千葉県"]
 
+ALL_PREFS = [
+    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
+    "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
+    "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
+    "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
+    "熊本県","大分県","宮崎県","鹿児島県","沖縄県",
+]
+
 SUBSIDY_KEYWORDS = [
     "補助金","助成金","支援金","給付金","補助","助成","支援事業","公募",
     "IT導入","DX","ものづくり","持続化","事業再構築","雇用","省エネ",
@@ -54,7 +64,6 @@ def classify(title):
     return "補助金・助成金（一般）"
 
 def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
-    """汎用スクレイパー"""
     items = []
     try:
         res = requests.get(url, headers=HEADERS, timeout=20)
@@ -62,8 +71,6 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
         if res.status_code != 200:
             return items
         soup = BeautifulSoup(res.text, "lxml")
-        
-        # リンクを全て取得
         links = soup.find_all("a", href=True)
         for a in links:
             title = a.get_text(strip=True)
@@ -72,7 +79,6 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
                 continue
             if title_filter and not is_subsidy(title):
                 continue
-            # フルURLに変換
             if href.startswith("http"):
                 full_url = href
             elif href.startswith("/"):
@@ -81,7 +87,6 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
                 full_url = f"{parsed.scheme}://{parsed.netloc}{href}"
             else:
                 continue
-            # パターンフィルタ
             if link_pattern and not re.search(link_pattern, href):
                 continue
             items.append({
@@ -102,7 +107,6 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
         logger.warning(f"  エラー ({org}): {e}")
     return items
 
-# 1都3県のスクレイピング対象
 SCRAPE_TARGETS = [
     # 東京都
     {
@@ -119,17 +123,22 @@ SCRAPE_TARGETS = [
     },
     # 神奈川県
     {
-        "url": "https://www.pref.kanagawa.jp/osirase/1025113/",
+        "url": "https://www.pref.kanagawa.jp/docs/t3u/f533/index.html",
         "pref": "神奈川県", "org": "神奈川県",
+        "title_filter": False,
     },
     {
-        "url": "https://www.pref.kanagawa.jp/docs/t3u/f533/index.html",
+        "url": "https://www.pref.kanagawa.jp/docs/t3u/cnt/f533/index.html",
         "pref": "神奈川県", "org": "神奈川県",
         "title_filter": False,
     },
     {
         "url": "https://www.pref.kanagawa.jp/osirase/0901001/",
         "pref": "神奈川県", "org": "神奈川県産業労働局",
+    },
+    {
+        "url": "https://www.pref.kanagawa.jp/osirase/1025113/",
+        "pref": "神奈川県", "org": "神奈川県",
     },
     # 埼玉県
     {
@@ -170,23 +179,14 @@ def main():
 
     logger.info(f"新規スクレイピング: {len(all_new_items)}件")
 
-    # 既存データと統合
+    # 既存データ読み込み
     existing = []
     if HISTORY_FILE.exists():
         with open(HISTORY_FILE, encoding="utf-8") as f:
             try: existing = json.load(f).get("items", [])
             except: existing = []
 
-    # 既存データのprefも修正
-    ALL_PREFS = [
-        "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
-        "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
-        "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
-        "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
-        "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
-        "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
-        "熊本県","大分県","宮崎県","鹿児島県","沖縄県",
-    ]
+    # 既存データのprefをタイトルから修正
     for item in existing:
         if item.get("pref") == "全国":
             title = item.get("title","") + item.get("org","")
@@ -202,7 +202,7 @@ def main():
                         item["source"] = "自治体"
                         break
 
-    # 新規スクレイピング結果を既存データに追加（重複除去）
+    # 新規スクレイピング結果を追加（重複除去）
     existing_ids = {item["id"] for item in existing}
     for item in all_new_items:
         if item["id"] not in existing_ids:
