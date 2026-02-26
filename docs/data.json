@@ -1,8 +1,47 @@
 {
-  "updated": "2026年02月26日 05:44",
-  "count": 1227,
-  "total": 1227,
+  "updated": "2026年02月26日 06:01",
+  "count": 3,
+  "total": 1230,
   "items": [
+    {
+      "id": "17238808f64a11f7",
+      "title": "é»å­çåºã»DX",
+      "org": "千葉県商工労働部",
+      "pref": "千葉県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "IT・デジタル",
+      "url": "https://www.pref.chiba.lg.jp/cate/kfk/kurashi/jouhouka/index.html",
+      "source": "自治体",
+      "date": "2026-02-26"
+    },
+    {
+      "id": "88da37648bc0df20",
+      "title": "ä»¤å6å¹´åº¦åä»çµäº5Gã«ããè£½é å·¥å ´ã®DXã»GXæ¨é²äºæ¥­ãç®çãã­ã¼ã«ã«5Gãè£½é å·¥å ´ã«å°å¥",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "IT・デジタル",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/5g-dx_gx/index.html",
+      "source": "自治体",
+      "date": "2026-02-26"
+    },
+    {
+      "id": "e0e403419ac05718",
+      "title": "ä»¤å7å¹´åº¦åä»çµäºDXæ¨é²å©æéï¼çç£æ§åä¸ã³ã¼ã¹ï¼DXæ¦ç¥ç­å®æ¯æ´ã³ã¼ã¹ï¼å¬ç¤¾ã®ã¢ãã",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "IT・デジタル",
+      "url": "https://iot-robot.jp/business/dxsubsidy/",
+      "source": "自治体",
+      "date": "2026-02-26"
+    },
     {
       "id": "a0WJ200000CDWSWMA5",
       "title": "令和６年度_東京都新人看護職員研修事業費補助事業【仕入控除税額報告】",
