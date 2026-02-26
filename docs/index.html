@@ -12,6 +12,7 @@
   --ink:#0f1923;--ink-light:#3d4f5c;--ink-muted:#7a8fa0;--surface:#f5f7fa;
   --card:#ffffff;--border:#dde4ec;--accent:#0057ff;--accent-2:#00c48c;
   --warn:#ff6b35;--local-bg:#fffbf0;--local-border:#f0a500;
+  --expired-bg:#f5f5f5;--expired-border:#b0b0b0;
   --radius:10px;--shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 32px rgba(0,0,0,.12);
 }
 body{font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(--ink);min-height:100vh;font-size:14px;line-height:1.6;}
@@ -48,6 +49,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(-
 .section-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
 .section-head .bar{width:4px;height:22px;border-radius:2px;background:var(--local-border);flex-shrink:0;}
 .section-head .bar.national{background:var(--accent);}
+.section-head .bar.expired{background:var(--expired-border);}
 .section-head h2{font-size:1rem;font-weight:700;color:var(--ink);}
 .section-head .count{margin-left:auto;font-size:.78rem;color:var(--ink-muted);font-family:'DM Mono',monospace;}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
@@ -55,27 +57,44 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(-
 .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:#b0c4e0;}
 .card.local{border-color:var(--local-border);background:var(--local-bg);}
 .card.local:hover{border-color:#d4890a;}
+.card.expired-card{border-color:var(--expired-border);background:var(--expired-bg);opacity:0.75;}
+.card.expired-card:hover{border-color:#888;opacity:1;}
 .card.hidden{display:none;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
 .card-title{font-size:.9rem;font-weight:700;line-height:1.45;color:var(--ink);flex:1;}
 .card-title a{color:inherit;text-decoration:none;transition:color .15s;}
 .card-title a:hover{color:var(--accent);}
+.expired-card .card-title a{color:var(--ink-muted);}
 .new-badge{background:var(--warn);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
 .local-badge{background:var(--local-border);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+.expired-badge{background:#888;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
 .card-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .meta-item{display:flex;flex-direction:column;gap:2px;}
 .meta-label{font-size:.65rem;font-weight:700;color:var(--ink-muted);letter-spacing:.05em;text-transform:uppercase;}
 .meta-value{font-size:.8rem;color:var(--ink-light);line-height:1.4;}
-.meta-value.amount{color:#1a7a50;font-weight:700;}.meta-value.deadline{color:#c04a00;font-weight:600;}.meta-value.empty{color:var(--ink-muted);}
+.meta-value.amount{color:#1a7a50;font-weight:700;}.meta-value.deadline{color:#c04a00;font-weight:600;}.meta-value.deadline.expired{color:#888;text-decoration:line-through;}.meta-value.empty{color:var(--ink-muted);}
 .card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border);gap:6px;flex-wrap:wrap;}
 .cat-tag{font-size:.72rem;padding:3px 9px;border-radius:12px;background:#ebf3ff;color:var(--accent);font-weight:600;white-space:nowrap;}
 .cat-tag.local{background:#fff3d6;color:#a06000;}
+.cat-tag.expired{background:#ececec;color:#888;}
 .region-tag{font-size:.72rem;color:var(--ink-muted);}
 .apply-btn{font-size:.75rem;font-weight:700;color:var(--accent);text-decoration:none;padding:4px 10px;border:1.5px solid var(--accent);border-radius:6px;transition:all .15s;margin-left:auto;white-space:nowrap;}
 .apply-btn:hover{background:var(--accent);color:#fff;}
+.apply-btn.expired{color:#888;border-color:#888;}
+.apply-btn.expired:hover{background:#888;color:#fff;}
 .empty-state{text-align:center;padding:48px 20px;color:var(--ink-muted);grid-column:1/-1;}
 .empty-state .emoji{font-size:2.5rem;display:block;margin-bottom:10px;}
+
+/* 期限切れ折りたたみ */
+.expired-toggle{width:100%;background:var(--expired-bg);border:1.5px solid var(--expired-border);border-radius:var(--radius);padding:12px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.9rem;font-weight:700;color:#666;transition:all .2s;margin-bottom:0;}
+.expired-toggle:hover{background:#ebebeb;border-color:#888;}
+.expired-toggle .toggle-icon{margin-left:auto;font-size:1rem;transition:transform .3s;}
+.expired-toggle.open .toggle-icon{transform:rotate(180deg);}
+.expired-section{overflow:hidden;max-height:0;transition:max-height .4s ease;}
+.expired-section.open{max-height:99999px;}
+.expired-inner{padding-top:14px;}
+
 .site-footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:20px;font-size:.75rem;}
 #loading{position:fixed;inset:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;z-index:9999;transition:opacity .4s;}
 #loading.fade{opacity:0;pointer-events:none;}
@@ -115,19 +134,69 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(-
       <span class="chip" onclick="setFilter('source','国・省庁',this)">🏛️ 国・省庁のみ</span>
     </div></div>
   </div>
+
+  <!-- 自治体情報（有効） -->
   <div class="section">
     <div class="section-head"><div class="bar"></div><h2>📍 自治体情報（見逃しやすいローカル情報）</h2><span class="count" id="localCount"></span></div>
     <div class="card-grid" id="localGrid"><div class="empty-state"><span class="emoji">⏳</span>読み込み中…</div></div>
   </div>
+
+  <!-- 国・省庁情報（有効） -->
   <div class="section">
     <div class="section-head"><div class="bar national"></div><h2>🏛️ 国・省庁情報</h2><span class="count" id="nationalCount"></span></div>
     <div class="card-grid" id="nationalGrid"><div class="empty-state"><span class="emoji">⏳</span>読み込み中…</div></div>
+  </div>
+
+  <!-- 期限切れ（折りたたみ） -->
+  <div class="section" id="expiredSection" style="display:none;">
+    <button class="expired-toggle" id="expiredToggle" onclick="toggleExpired()">
+      <span>📁</span>
+      <span>申請期限切れ</span>
+      <span id="expiredCountLabel" style="font-size:.78rem;color:#888;font-weight:400;"></span>
+      <span class="toggle-icon">▼</span>
+    </button>
+    <div class="expired-section" id="expiredContent">
+      <div class="expired-inner">
+        <div class="card-grid" id="expiredGrid"></div>
+      </div>
+    </div>
   </div>
 </main>
 <footer class="site-footer">毎日 09:00 自動更新 ｜ データは参考情報です。申請は必ず公式ページでご確認ください。</footer>
 <script>
 const state={items:[],filters:{cat:'all',pref:'all',source:'all',q:''}};
 const TODAY=new Date().toISOString().slice(0,10);
+
+// 期限切れ判定
+function isExpired(item){
+  if(!item.deadline) return false;
+  const d=item.deadline;
+  // 「令和X年Y月Z日」パース
+  const m1=d.match(/令和(\d+)年(\d+)月(\d+)日/);
+  if(m1){
+    const year=2018+parseInt(m1[1]);
+    const month=parseInt(m1[2])-1;
+    const day=parseInt(m1[3]);
+    const deadline=new Date(year,month,day);
+    deadline.setHours(23,59,59);
+    return deadline < new Date();
+  }
+  // 「YYYY-MM-DD」形式
+  const m2=d.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(m2){
+    const deadline=new Date(m2[1],parseInt(m2[2])-1,parseInt(m2[3]),23,59,59);
+    return deadline < new Date();
+  }
+  return false;
+}
+
+function toggleExpired(){
+  const btn=document.getElementById('expiredToggle');
+  const content=document.getElementById('expiredContent');
+  btn.classList.toggle('open');
+  content.classList.toggle('open');
+}
+
 async function loadData(){
   try{
     const res=await fetch('data.json?v='+Date.now());
@@ -149,15 +218,20 @@ async function loadData(){
     el.classList.add('fade');setTimeout(()=>el.remove(),500);
   }
 }
+
 function buildFilters(){
-  const cats=['all',...new Set(state.items.map(d=>d.category).filter(Boolean))];
-  const prefs=['all','全国',...new Set(state.items.map(d=>d.pref).filter(p=>p&&p!=='全国'))];
-  const catCounts=countBy(state.items,'category');
-  const prefCounts=countBy(state.items,'pref');
+  // 期限切れを除いたアクティブなアイテムでフィルター構築
+  const active=state.items.filter(d=>!isExpired(d));
+  const cats=['all',...new Set(active.map(d=>d.category).filter(Boolean))];
+  const prefs=['all','全国',...new Set(active.map(d=>d.pref).filter(p=>p&&p!=='全国'))];
+  const catCounts=countBy(active,'category');
+  const prefCounts=countBy(active,'pref');
   renderChips('catChips',cats,catCounts,'cat',c=>c==='all'?'すべて':c);
   renderChips('prefChips',prefs,prefCounts,'pref',p=>p==='all'?'すべての地域':p);
 }
+
 function countBy(arr,key){return arr.reduce((acc,item)=>{acc[item[key]]=(acc[item[key]]||0)+1;return acc;},{});}
+
 function renderChips(id,values,counts,type,labelFn){
   document.getElementById(id).innerHTML=values.map(v=>{
     const cnt=v==='all'?'':'<span class="badge">'+(counts[v]||0)+'</span>';
@@ -165,13 +239,16 @@ function renderChips(id,values,counts,type,labelFn){
     return '<span class="chip'+active+'" onclick="setFilter(\''+type+'\',\''+v+'\',this)">'+labelFn(v)+cnt+'</span>';
   }).join('');
 }
+
 function setFilter(type,value,el){
   state.filters[type]=value;
   const pid=type==='cat'?'catChips':type==='pref'?'prefChips':'sourceChips';
   document.querySelectorAll('#'+pid+' .chip').forEach(c=>c.classList.remove('active'));
   el.classList.add('active');render();
 }
+
 document.getElementById('searchInput').addEventListener('input',e=>{state.filters.q=e.target.value.toLowerCase();render();});
+
 function matchItem(item){
   const{cat,pref,source,q}=state.filters;
   if(cat!=='all'&&item.category!==cat)return false;
@@ -180,23 +257,47 @@ function matchItem(item){
   if(q&&![item.title,item.org,item.target,item.category].some(s=>s&&s.toLowerCase().includes(q)))return false;
   return true;
 }
+
 function render(){
-  const filtered=state.items.filter(matchItem);
-  const local=filtered.filter(d=>d.source==='自治体');
-  const national=filtered.filter(d=>d.source!=='自治体');
+  const allFiltered=state.items.filter(matchItem);
+
+  // 有効 / 期限切れ に分類
+  const active=allFiltered.filter(d=>!isExpired(d));
+  const expired=allFiltered.filter(d=>isExpired(d));
+
+  const local=active.filter(d=>d.source==='自治体');
+  const national=active.filter(d=>d.source!=='自治体');
+
   document.getElementById('localCount').textContent=local.length+'件';
   document.getElementById('nationalCount').textContent=national.length+'件';
-  document.getElementById('localGrid').innerHTML=local.length?local.map(cardHTML).join(''):'<div class="empty-state"><span class="emoji">🔍</span>該当する情報がありません</div>';
-  document.getElementById('nationalGrid').innerHTML=national.length?national.map(cardHTML).join(''):'<div class="empty-state"><span class="emoji">🔍</span>該当する情報がありません</div>';
+  document.getElementById('localGrid').innerHTML=local.length?local.map(d=>cardHTML(d,false)).join(''):'<div class="empty-state"><span class="emoji">🔍</span>該当する情報がありません</div>';
+  document.getElementById('nationalGrid').innerHTML=national.length?national.map(d=>cardHTML(d,false)).join(''):'<div class="empty-state"><span class="emoji">🔍</span>該当する情報がありません</div>';
+
+  // 期限切れセクション
+  const expSec=document.getElementById('expiredSection');
+  if(expired.length>0){
+    expSec.style.display='block';
+    document.getElementById('expiredCountLabel').textContent='（'+expired.length+'件）';
+    document.getElementById('expiredGrid').innerHTML=expired.map(d=>cardHTML(d,true)).join('');
+  } else {
+    expSec.style.display='none';
+  }
 }
-function cardHTML(item){
+
+function cardHTML(item, expired){
   const isLocal=item.source==='自治体';
   const isNew=item.date===TODAY;
   const amt=item.amount?'<span class="meta-value amount">'+esc(item.amount)+'</span>':'<span class="meta-value empty">—</span>';
-  const ddl=item.deadline?'<span class="meta-value deadline">'+esc(item.deadline)+'</span>':'<span class="meta-value empty">—</span>';
+  const ddlClass=expired?'meta-value deadline expired':'meta-value deadline';
+  const ddl=item.deadline?'<span class="'+ddlClass+'">'+esc(item.deadline)+'</span>':'<span class="meta-value empty">—</span>';
   const tgt=item.target?'<span class="meta-value">'+esc(item.target.slice(0,60))+(item.target.length>60?'…':'')+'</span>':'<span class="meta-value empty">中小企業・事業者</span>';
-  return '<div class="card'+(isLocal?' local':'')+'"><div class="card-top"><div class="card-title"><a href="'+esc(item.url)+'" target="_blank" rel="noopener">'+esc(item.title)+'</a></div><div style="display:flex;gap:4px">'+(isNew?'<span class="new-badge">NEW</span>':'')+(isLocal?'<span class="local-badge">自治体</span>':'')+'</div></div><div class="card-meta"><div class="meta-item"><span class="meta-label">実施機関</span><span class="meta-value">'+esc(item.org)+'</span></div><div class="meta-item"><span class="meta-label">補助金額・上限</span>'+amt+'</div><div class="meta-item"><span class="meta-label">申請期限</span>'+ddl+'</div><div class="meta-item"><span class="meta-label">対象</span>'+tgt+'</div></div><div class="card-footer"><span class="cat-tag'+(isLocal?' local':'')+'">'+esc(item.category)+'</span><span class="region-tag">📍 '+esc(item.pref||'全国')+'</span><a class="apply-btn" href="'+esc(item.url)+'" target="_blank" rel="noopener">詳細・申請 →</a></div></div>';
+  const cardClass='card'+(expired?' expired-card':isLocal?' local':'');
+  const catClass='cat-tag'+(expired?' expired':isLocal?' local':'');
+  const btnClass='apply-btn'+(expired?' expired':'');
+  const badges=(isNew&&!expired?'<span class="new-badge">NEW</span>':'')+(isLocal&&!expired?'<span class="local-badge">自治体</span>':'')+(expired?'<span class="expired-badge">期限切れ</span>':'');
+  return '<div class="'+cardClass+'"><div class="card-top"><div class="card-title"><a href="'+esc(item.url)+'" target="_blank" rel="noopener">'+esc(item.title)+'</a></div><div style="display:flex;gap:4px">'+badges+'</div></div><div class="card-meta"><div class="meta-item"><span class="meta-label">実施機関</span><span class="meta-value">'+esc(item.org)+'</span></div><div class="meta-item"><span class="meta-label">補助金額・上限</span>'+amt+'</div><div class="meta-item"><span class="meta-label">申請期限</span>'+ddl+'</div><div class="meta-item"><span class="meta-label">対象</span>'+tgt+'</div></div><div class="card-footer"><span class="'+catClass+'">'+esc(item.category)+'</span><span class="region-tag">📍 '+esc(item.pref||'全国')+'</span><a class="'+btnClass+'" href="'+esc(item.url)+'" target="_blank" rel="noopener">詳細・申請 →</a></div></div>';
 }
+
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 loadData();
 </script>
