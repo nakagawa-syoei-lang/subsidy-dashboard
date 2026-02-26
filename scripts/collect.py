@@ -70,6 +70,7 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
         logger.info(f"  {org}: {res.status_code} ({url[-50:]})")
         if res.status_code != 200:
             return items
+        res.encoding = res.apparent_encoding
         soup = BeautifulSoup(res.text, "lxml")
         links = soup.find_all("a", href=True)
         for a in links:
