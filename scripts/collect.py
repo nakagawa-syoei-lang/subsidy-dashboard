@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import requests
-import json, time, logging
+from bs4 import BeautifulSoup
+import json, time, logging, re, hashlib
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -9,32 +10,28 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger(__name__)
 
 HISTORY_FILE = Path("docs/data.json")
-BASE_URL = "https://api.jgrants-portal.go.jp/exp/v1/public/subsidies"
-HEADERS = {"Accept": "application/json", "User-Agent": "Mozilla/5.0"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+}
 KANTO_PREFS = ["東京都", "神奈川県", "埼玉県", "千葉県"]
 
-ALL_PREFS = [
-    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
-    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
-    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
-    "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
-    "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
-    "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
-    "熊本県","大分県","宮崎県","鹿児島県","沖縄県",
+SUBSIDY_KEYWORDS = [
+    "補助金","助成金","支援金","給付金","補助","助成","支援事業","公募",
+    "IT導入","DX","ものづくり","持続化","事業再構築","雇用","省エネ",
+    "融資","貸付","資金","創業","起業","販路","設備","物価","高騰",
 ]
 
-def get_pref_from_text(text):
-    """タイトル・説明文から都道府県を抽出"""
-    for kanto in KANTO_PREFS:
-        if kanto in text:
-            return kanto
-    for pref in ALL_PREFS:
-        if pref in text:
-            return pref
-    return "全国"
+def make_id(url):
+    return hashlib.md5(url.encode()).hexdigest()[:16]
 
-def classify(title, use_purpose=""):
-    text = title + " " + (use_purpose or "")
+def is_subsidy(title):
+    return any(kw in title for kw in SUBSIDY_KEYWORDS)
+
+def classify(title):
     mapping = {
         "IT・デジタル":     ["IT","DX","デジタル","AI","クラウド","ICT","システム","電子"],
         "雇用・人材":       ["雇用","人材","採用","訓練","賃上げ","賃金","労働","働き方"],
@@ -52,129 +49,180 @@ def classify(title, use_purpose=""):
         "防災・安全":       ["防災","耐震","BCP"],
     }
     for cat, kws in mapping.items():
-        if any(kw in text for kw in kws):
+        if any(kw in title for kw in kws):
             return cat
     return "補助金・助成金（一般）"
 
-def try_fetch_api():
-    """JグランツAPIを試みる"""
+def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
+    """汎用スクレイパー"""
     items = []
-    seen_ids = set()
-    
-    # パラメータなしで試す
-    test_params = [
-        {"keyword": "補助金", "sort": "created_date", "order": "DESC", "limit": 100},
-        {"keyword": "補助金", "limit": 100},
-        {"sort": "created_date", "order": "DESC", "limit": 100, "offset": 0},
-    ]
-    
-    for params in test_params:
-        try:
-            res = requests.get(BASE_URL, headers=HEADERS, params=params, timeout=15)
-            logger.info(f"API試行 {params}: {res.status_code}")
-            if res.status_code == 200:
-                data = res.json()
-                result = data.get("result", []) or []
-                if result:
-                    logger.info(f"API成功! {len(result)}件取得")
-                    for item in result:
-                        sid = str(item.get("id",""))
-                        if sid and sid not in seen_ids:
-                            seen_ids.add(sid)
-                            title = item.get("title","")
-                            subsidy_id = item.get("id","")
-                            url = f"https://www.jgrants-portal.go.jp/subsidy/{subsidy_id}"
-                            amount = ""
-                            upper = item.get("subsidy_max_limit")
-                            if upper:
-                                try: amount = f"上限 {int(float(upper)):,}円"
-                                except: pass
-                            deadline = ""
-                            end_date = item.get("acceptance_end_datetime","") or ""
-                            if end_date and len(end_date) >= 10:
-                                try:
-                                    d = datetime.strptime(end_date[:10],"%Y-%m-%d")
-                                    deadline = f"令和{d.year-2018}年{d.month}月{d.day}日締切"
-                                except: pass
-                            target_area = item.get("target_area_search","") or ""
-                            pref = get_pref_from_text(target_area + title)
-                            org = item.get("government_name","") or "国・自治体"
-                            items.append({
-                                "id": str(subsidy_id),
-                                "title": title[:120],
-                                "org": org[:40],
-                                "pref": pref,
-                                "amount": amount,
-                                "deadline": deadline,
-                                "target": item.get("target_number_of_employees","") or "",
-                                "category": classify(title),
-                                "url": url,
-                                "source": "自治体" if pref != "全国" else "国・省庁",
-                                "date": str(date.today()),
-                            })
-                    return items, True  # 成功
-        except Exception as e:
-            logger.warning(f"API試行エラー: {e}")
-        time.sleep(1)
-    
-    return [], False  # 失敗
-
-def fix_existing_prefs(items):
-    """既存データのprefをタイトルから修正"""
-    fixed = 0
-    for item in items:
-        if item.get("pref") == "全国":
-            new_pref = get_pref_from_text(item.get("title","") + item.get("org",""))
-            if new_pref != "全国":
-                item["pref"] = new_pref
-                item["source"] = "自治体"
-                fixed += 1
-    logger.info(f"pref修正: {fixed}件を全国→都道府県に更新")
+    try:
+        res = requests.get(url, headers=HEADERS, timeout=20)
+        logger.info(f"  {org}: {res.status_code} ({url[-50:]})")
+        if res.status_code != 200:
+            return items
+        soup = BeautifulSoup(res.text, "lxml")
+        
+        # リンクを全て取得
+        links = soup.find_all("a", href=True)
+        for a in links:
+            title = a.get_text(strip=True)
+            href = a["href"]
+            if not title or len(title) < 8:
+                continue
+            if title_filter and not is_subsidy(title):
+                continue
+            # フルURLに変換
+            if href.startswith("http"):
+                full_url = href
+            elif href.startswith("/"):
+                from urllib.parse import urlparse
+                parsed = urlparse(url)
+                full_url = f"{parsed.scheme}://{parsed.netloc}{href}"
+            else:
+                continue
+            # パターンフィルタ
+            if link_pattern and not re.search(link_pattern, href):
+                continue
+            items.append({
+                "id": make_id(full_url),
+                "title": title[:120],
+                "org": org,
+                "pref": pref,
+                "amount": "",
+                "deadline": "",
+                "target": "",
+                "category": classify(title),
+                "url": full_url,
+                "source": "自治体",
+                "date": str(date.today()),
+            })
+        logger.info(f"    → {len(items)}件")
+    except Exception as e:
+        logger.warning(f"  エラー ({org}): {e}")
     return items
 
+# 1都3県のスクレイピング対象
+SCRAPE_TARGETS = [
+    # 東京都
+    {
+        "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/support/",
+        "pref": "東京都", "org": "東京都産業労働局",
+    },
+    {
+        "url": "https://www.tokyo-kosha.or.jp/support/josei/index.html",
+        "pref": "東京都", "org": "東京都中小企業振興公社",
+    },
+    {
+        "url": "https://metro.tokyo.lg.jp/tosei/hodohappyo/press/index.html",
+        "pref": "東京都", "org": "東京都",
+    },
+    # 神奈川県
+    {
+        "url": "https://www.pref.kanagawa.jp/osirase/1025113/",
+        "pref": "神奈川県", "org": "神奈川県",
+    },
+    {
+        "url": "https://www.pref.kanagawa.jp/docs/t3u/f533/index.html",
+        "pref": "神奈川県", "org": "神奈川県",
+        "title_filter": False,
+    },
+    {
+        "url": "https://www.pref.kanagawa.jp/osirase/0901001/",
+        "pref": "神奈川県", "org": "神奈川県産業労働局",
+    },
+    # 埼玉県
+    {
+        "url": "https://www.pref.saitama.lg.jp/a0801/hojokin/index.html",
+        "pref": "埼玉県", "org": "埼玉県",
+    },
+    {
+        "url": "https://www.pref.saitama.lg.jp/a0801/index.html",
+        "pref": "埼玉県", "org": "埼玉県産業労働部",
+    },
+    # 千葉県
+    {
+        "url": "https://www.pref.chiba.lg.jp/shinsei/jyosei/index.html",
+        "pref": "千葉県", "org": "千葉県",
+    },
+    {
+        "url": "https://www.pref.chiba.lg.jp/keishi/index.html",
+        "pref": "千葉県", "org": "千葉県商工労働部",
+    },
+]
+
 def main():
-    # 既存データ読み込み
+    all_new_items = []
+    seen_ids = set()
+
+    logger.info("=== 1都3県 公式サイトスクレイピング ===")
+    for target in SCRAPE_TARGETS:
+        title_filter = target.get("title_filter", True)
+        items = scrape_page(
+            target["url"], target["pref"], target["org"],
+            target.get("link_pattern"), title_filter
+        )
+        for item in items:
+            if item["id"] not in seen_ids:
+                seen_ids.add(item["id"])
+                all_new_items.append(item)
+        time.sleep(2)
+
+    logger.info(f"新規スクレイピング: {len(all_new_items)}件")
+
+    # 既存データと統合
     existing = []
     if HISTORY_FILE.exists():
         with open(HISTORY_FILE, encoding="utf-8") as f:
             try: existing = json.load(f).get("items", [])
             except: existing = []
-    logger.info(f"既存データ: {len(existing)}件")
 
-    # APIを試みる
-    logger.info("=== JグランツAPI試行 ===")
-    new_items, api_success = try_fetch_api()
-    
-    today_str = str(date.today())
-    
-    if api_success and new_items:
-        logger.info(f"API成功: {len(new_items)}件取得")
-        old_data = [r for r in existing if r.get("date") != today_str]
-        combined = new_items + old_data
-    else:
-        logger.info("API失敗 → 既存データのprefを修正して使用")
-        # 既存データのprefを修正
-        existing = fix_existing_prefs(existing)
-        # 今日のデータとして再登録
-        for item in existing:
-            item["date"] = today_str
-        combined = existing
+    # 既存データのprefも修正
+    ALL_PREFS = [
+        "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+        "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+        "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
+        "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
+        "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
+        "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
+        "熊本県","大分県","宮崎県","鹿児島県","沖縄県",
+    ]
+    for item in existing:
+        if item.get("pref") == "全国":
+            title = item.get("title","") + item.get("org","")
+            for kanto in KANTO_PREFS:
+                if kanto in title:
+                    item["pref"] = kanto
+                    item["source"] = "自治体"
+                    break
+            else:
+                for pref in ALL_PREFS:
+                    if pref in title:
+                        item["pref"] = pref
+                        item["source"] = "自治体"
+                        break
+
+    # 新規スクレイピング結果を既存データに追加（重複除去）
+    existing_ids = {item["id"] for item in existing}
+    for item in all_new_items:
+        if item["id"] not in existing_ids:
+            existing.insert(0, item)
+            existing_ids.add(item["id"])
 
     cutoff = str(date.today() - timedelta(days=90))
-    combined = [r for r in combined if r.get("date","") >= cutoff]
+    combined = [r for r in existing if r.get("date","") >= cutoff]
 
     # 1都3県を先頭に
     kanto = [x for x in combined if x.get("pref") in KANTO_PREFS]
     others = [x for x in combined if x.get("pref") not in KANTO_PREFS]
     combined = kanto + others
 
-    kanto_count = len(kanto)
-    logger.info(f"1都3県: {kanto_count}件 / 全{len(combined)}件")
+    logger.info(f"1都3県: {len(kanto)}件 / 全{len(combined)}件")
 
     Path("docs").mkdir(exist_ok=True)
     output = {
         "updated": datetime.now().strftime("%Y年%m月%d日 %H:%M"),
-        "count": len(new_items) if api_success else len(combined),
+        "count": len(all_new_items),
         "total": len(combined),
         "items": combined,
     }
