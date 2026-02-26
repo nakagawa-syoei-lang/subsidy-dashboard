@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import json, time, logging, re, hashlib
 from datetime import date, datetime, timedelta
 from pathlib import Path
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -107,22 +107,18 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
         logger.warning(f"  エラー ({org}): {e}")
     return items
 
-def scrape_tokyo_portal(pages=10):
-    """東京都ポータル 事業者向け「助成・給付金・融資」カテゴリを複数ページ取得"""
+def scrape_tokyo_portal():
+    """東京都ポータル（全局横断）"""
     items = []
     seen = set()
-    # 事業者向け・助成給付金融資カテゴリ
-    base_url = "https://www.metro.tokyo.lg.jp/tosei/hodohappyo/press/index.html"
-    # 新着情報（事業者・助成）
     target_urls = [
-        "https://www.metro.tokyo.lg.jp/tosei/seisakujoho/seisakutorikumi/index.html",
-        "https://www.sangyo-rodo.metro.tokyo.lg.jp/chushou/shoko/jyosei/",
-        "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/",
+        ("https://www.sangyo-rodo.metro.tokyo.lg.jp/chushou/shoko/jyosei/", "東京都産業労働局"),
+        ("https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/", "東京都保健医療局"),
     ]
-    for url in target_urls:
+    for url, org in target_urls:
         try:
             res = requests.get(url, headers=HEADERS, timeout=20)
-            logger.info(f"  東京都ポータル: {res.status_code} ({url[-60:]})")
+            logger.info(f"  {org}: {res.status_code} ({url[-60:]})")
             if res.status_code != 200:
                 continue
             res.encoding = res.apparent_encoding
@@ -147,7 +143,7 @@ def scrape_tokyo_portal(pages=10):
                 items.append({
                     "id": make_id(full_url),
                     "title": title[:120],
-                    "org": "東京都",
+                    "org": org,
                     "pref": "東京都",
                     "amount": "",
                     "deadline": "",
@@ -160,13 +156,15 @@ def scrape_tokyo_portal(pages=10):
             logger.info(f"    → {len(items)}件累計")
             time.sleep(2)
         except Exception as e:
-            logger.warning(f"  東京都ポータルエラー: {e}")
+            logger.warning(f"  東京都ポータルエラー ({org}): {e}")
     return items
 
 def scrape_kanagawa_tag(pages=5):
-    """神奈川県タグ検索ページを複数ページスクレイピング"""
+    """神奈川県タグ検索＋健康医療局"""
     items = []
     seen = set()
+
+    # タグ検索（補助金・助成金・融資）
     base = "https://www.pref.kanagawa.jp/search/tag.html"
     for tag_id in ["26", "27"]:
         for page in range(1, pages + 1):
@@ -217,7 +215,57 @@ def scrape_kanagawa_tag(pages=5):
                 logger.warning(f"  神奈川タグエラー: {e}")
                 break
         time.sleep(2)
-    logger.info(f"  神奈川タグ合計: {len(items)}件")
+
+    # 健康医療局（物価高騰支援金などを含む）
+    health_urls = [
+        ("https://www.pref.kanagawa.jp/div/1336/index.html", "神奈川県健康医療局"),
+        ("https://www.pref.kanagawa.jp/menu/2/6/31/index.html", "神奈川県医療政策"),
+    ]
+    for url, org in health_urls:
+        try:
+            res = requests.get(url, headers=HEADERS, timeout=20)
+            logger.info(f"  {org}: {res.status_code} ({url[-60:]})")
+            if res.status_code != 200:
+                continue
+            res.encoding = res.apparent_encoding
+            soup = BeautifulSoup(res.text, "lxml")
+            found = 0
+            for a in soup.find_all("a", href=True):
+                title = a.get_text(strip=True)
+                href = a["href"]
+                if not title or len(title) < 8:
+                    continue
+                if not is_subsidy(title):
+                    continue
+                if href.startswith("/"):
+                    full_url = f"https://www.pref.kanagawa.jp{href}"
+                elif href.startswith("http"):
+                    full_url = href
+                else:
+                    continue
+                if full_url in seen:
+                    continue
+                seen.add(full_url)
+                found += 1
+                items.append({
+                    "id": make_id(full_url),
+                    "title": title[:120],
+                    "org": org,
+                    "pref": "神奈川県",
+                    "amount": "",
+                    "deadline": "",
+                    "target": "",
+                    "category": classify(title),
+                    "url": full_url,
+                    "source": "自治体",
+                    "date": str(date.today()),
+                })
+            logger.info(f"    → 新規{found}件")
+            time.sleep(2)
+        except Exception as e:
+            logger.warning(f"  神奈川健康医療局エラー ({org}): {e}")
+
+    logger.info(f"  神奈川合計: {len(items)}件")
     return items
 
 SCRAPE_TARGETS = [
@@ -273,15 +321,13 @@ def main():
                 all_new_items.append(item)
         time.sleep(2)
 
-    # 東京都ポータル（全局横断）
     logger.info("=== 東京都ポータル（保健医療局等含む）===")
     for item in scrape_tokyo_portal():
         if item["id"] not in seen_ids:
             seen_ids.add(item["id"])
             all_new_items.append(item)
 
-    # 神奈川県タグ検索
-    logger.info("=== 神奈川県タグ検索 ===")
+    logger.info("=== 神奈川県（タグ検索＋健康医療局）===")
     for item in scrape_kanagawa_tag(pages=5):
         if item["id"] not in seen_ids:
             seen_ids.add(item["id"])
