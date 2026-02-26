@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import json, time, logging, re, hashlib
 from datetime import date, datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse, urljoin
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -67,13 +68,13 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
     items = []
     try:
         res = requests.get(url, headers=HEADERS, timeout=20)
-        logger.info(f"  {org}: {res.status_code} ({url[-50:]})")
+        logger.info(f"  {org}: {res.status_code} ({url[-60:]})")
         if res.status_code != 200:
             return items
         res.encoding = res.apparent_encoding
         soup = BeautifulSoup(res.text, "lxml")
-        links = soup.find_all("a", href=True)
-        for a in links:
+        parsed_base = urlparse(url)
+        for a in soup.find_all("a", href=True):
             title = a.get_text(strip=True)
             href = a["href"]
             if not title or len(title) < 8:
@@ -83,9 +84,7 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
             if href.startswith("http"):
                 full_url = href
             elif href.startswith("/"):
-                from urllib.parse import urlparse
-                parsed = urlparse(url)
-                full_url = f"{parsed.scheme}://{parsed.netloc}{href}"
+                full_url = f"{parsed_base.scheme}://{parsed_base.netloc}{href}"
             else:
                 continue
             if link_pattern and not re.search(link_pattern, href):
@@ -108,6 +107,119 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True):
         logger.warning(f"  エラー ({org}): {e}")
     return items
 
+def scrape_tokyo_portal(pages=10):
+    """東京都ポータル 事業者向け「助成・給付金・融資」カテゴリを複数ページ取得"""
+    items = []
+    seen = set()
+    # 事業者向け・助成給付金融資カテゴリ
+    base_url = "https://www.metro.tokyo.lg.jp/tosei/hodohappyo/press/index.html"
+    # 新着情報（事業者・助成）
+    target_urls = [
+        "https://www.metro.tokyo.lg.jp/tosei/seisakujoho/seisakutorikumi/index.html",
+        "https://www.sangyo-rodo.metro.tokyo.lg.jp/chushou/shoko/jyosei/",
+        "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/",
+    ]
+    for url in target_urls:
+        try:
+            res = requests.get(url, headers=HEADERS, timeout=20)
+            logger.info(f"  東京都ポータル: {res.status_code} ({url[-60:]})")
+            if res.status_code != 200:
+                continue
+            res.encoding = res.apparent_encoding
+            soup = BeautifulSoup(res.text, "lxml")
+            parsed_base = urlparse(url)
+            for a in soup.find_all("a", href=True):
+                title = a.get_text(strip=True)
+                href = a["href"]
+                if not title or len(title) < 8:
+                    continue
+                if not is_subsidy(title):
+                    continue
+                if href.startswith("http"):
+                    full_url = href
+                elif href.startswith("/"):
+                    full_url = f"{parsed_base.scheme}://{parsed_base.netloc}{href}"
+                else:
+                    continue
+                if full_url in seen:
+                    continue
+                seen.add(full_url)
+                items.append({
+                    "id": make_id(full_url),
+                    "title": title[:120],
+                    "org": "東京都",
+                    "pref": "東京都",
+                    "amount": "",
+                    "deadline": "",
+                    "target": "",
+                    "category": classify(title),
+                    "url": full_url,
+                    "source": "自治体",
+                    "date": str(date.today()),
+                })
+            logger.info(f"    → {len(items)}件累計")
+            time.sleep(2)
+        except Exception as e:
+            logger.warning(f"  東京都ポータルエラー: {e}")
+    return items
+
+def scrape_kanagawa_tag(pages=5):
+    """神奈川県タグ検索ページを複数ページスクレイピング"""
+    items = []
+    seen = set()
+    base = "https://www.pref.kanagawa.jp/search/tag.html"
+    for tag_id in ["26", "27"]:
+        for page in range(1, pages + 1):
+            url = f"{base}?q={tag_id}&page={page}"
+            try:
+                res = requests.get(url, headers=HEADERS, timeout=20)
+                logger.info(f"  神奈川タグ{tag_id}(p{page}): {res.status_code}")
+                if res.status_code != 200:
+                    break
+                res.encoding = res.apparent_encoding
+                soup = BeautifulSoup(res.text, "lxml")
+                found = 0
+                for a in soup.find_all("a", href=True):
+                    title = a.get_text(strip=True)
+                    href = a["href"]
+                    if not title or len(title) < 8:
+                        continue
+                    if not is_subsidy(title):
+                        continue
+                    if href.startswith("/"):
+                        full_url = f"https://www.pref.kanagawa.jp{href}"
+                    elif href.startswith("http"):
+                        full_url = href
+                    else:
+                        continue
+                    if full_url in seen:
+                        continue
+                    seen.add(full_url)
+                    found += 1
+                    items.append({
+                        "id": make_id(full_url),
+                        "title": title[:120],
+                        "org": "神奈川県",
+                        "pref": "神奈川県",
+                        "amount": "",
+                        "deadline": "",
+                        "target": "",
+                        "category": classify(title),
+                        "url": full_url,
+                        "source": "自治体",
+                        "date": str(date.today()),
+                    })
+                logger.info(f"    → 新規{found}件")
+                if not soup.find("a", string=re.compile("次")):
+                    break
+                time.sleep(1)
+            except Exception as e:
+                logger.warning(f"  神奈川タグエラー: {e}")
+                break
+        time.sleep(2)
+    logger.info(f"  神奈川タグ合計: {len(items)}件")
+    return items
+
 SCRAPE_TARGETS = [
     # 東京都
     {
@@ -124,17 +236,9 @@ SCRAPE_TARGETS = [
         "pref": "神奈川県", "org": "神奈川県中小企業支援課",
     },
     {
-        "url": "https://www.pref.kanagawa.jp/docs/jf2/dantai/support/2024support.html",
-        "pref": "神奈川県", "org": "神奈川県産業労働局",
-    },
-    {
         "url": "https://www.pref.kanagawa.jp/menu/5/20/116/index.html",
         "pref": "神奈川県", "org": "神奈川県",
         "title_filter": False,
-    },
-    {
-        "url": "https://startups.pref.kanagawa.jp/supports/relation-grants-and-subsidies/",
-        "pref": "神奈川県", "org": "KANAGAWA STARTUPS",
     },
     # 埼玉県
     {
@@ -149,10 +253,6 @@ SCRAPE_TARGETS = [
     {
         "url": "https://www.pref.chiba.lg.jp/keishi/index.html",
         "pref": "千葉県", "org": "千葉県商工労働部",
-    },
-    {
-        "url": "https://www.pref.chiba.lg.jp/shinsei/jyosei/index.html",
-        "pref": "千葉県", "org": "千葉県",
     },
 ]
 
@@ -173,16 +273,28 @@ def main():
                 all_new_items.append(item)
         time.sleep(2)
 
-    logger.info(f"新規スクレイピング: {len(all_new_items)}件")
+    # 東京都ポータル（全局横断）
+    logger.info("=== 東京都ポータル（保健医療局等含む）===")
+    for item in scrape_tokyo_portal():
+        if item["id"] not in seen_ids:
+            seen_ids.add(item["id"])
+            all_new_items.append(item)
 
-    # 既存データ読み込み
+    # 神奈川県タグ検索
+    logger.info("=== 神奈川県タグ検索 ===")
+    for item in scrape_kanagawa_tag(pages=5):
+        if item["id"] not in seen_ids:
+            seen_ids.add(item["id"])
+            all_new_items.append(item)
+
+    logger.info(f"新規スクレイピング合計: {len(all_new_items)}件")
+
     existing = []
     if HISTORY_FILE.exists():
         with open(HISTORY_FILE, encoding="utf-8") as f:
             try: existing = json.load(f).get("items", [])
             except: existing = []
 
-    # 既存データのprefをタイトルから修正
     for item in existing:
         if item.get("pref") == "全国":
             title = item.get("title","") + item.get("org","")
@@ -198,7 +310,6 @@ def main():
                         item["source"] = "自治体"
                         break
 
-    # 新規スクレイピング結果を追加（重複除去）
     existing_ids = {item["id"] for item in existing}
     for item in all_new_items:
         if item["id"] not in existing_ids:
@@ -208,7 +319,6 @@ def main():
     cutoff = str(date.today() - timedelta(days=90))
     combined = [r for r in existing if r.get("date","") >= cutoff]
 
-    # 1都3県を先頭に
     kanto = [x for x in combined if x.get("pref") in KANTO_PREFS]
     others = [x for x in combined if x.get("pref") not in KANTO_PREFS]
     combined = kanto + others
