@@ -38,6 +38,15 @@ SUBSIDY_KEYWORDS = [
     "医療機関","介護","薬局","病院","診療所",
 ]
 
+# 公募開始日・掲載日を探すキーワード
+START_DATE_KEYWORDS = [
+    "公募開始", "受付開始", "掲載日", "掲載開始", "公開日", "開始日",
+    "募集開始", "申請受付開始", "受付期間", "申請期間", "公募期間",
+    "募集期間", "掲載年月日", "更新日", "作成日",
+]
+
+EXPIRY_DAYS = 547  # 1年半 = 365 + 182
+
 def make_id(url):
     return hashlib.md5(url.encode()).hexdigest()[:16]
 
@@ -66,23 +75,67 @@ def classify(title):
             return cat
     return "補助金・助成金（一般）"
 
+def parse_japanese_date(text):
+    """テキストから日付を解析してdateオブジェクトを返す"""
+    if not text:
+        return None
+
+    # 令和X年Y月Z日
+    m = re.search(r'令和\s*(\d+)\s*年\s*(\d+)\s*月\s*(\d+)\s*日', text)
+    if m:
+        try:
+            year = 2018 + int(m.group(1))
+            month = int(m.group(2))
+            day = int(m.group(3))
+            if 2019 <= year <= 2035 and 1 <= month <= 12 and 1 <= day <= 31:
+                return date(year, month, day)
+        except:
+            pass
+
+    # YYYY年MM月DD日
+    m = re.search(r'(\d{4})\s*年\s*(\d+)\s*月\s*(\d+)\s*日', text)
+    if m:
+        try:
+            year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if 2019 <= year <= 2035 and 1 <= month <= 12 and 1 <= day <= 31:
+                return date(year, month, day)
+        except:
+            pass
+
+    # YYYY-MM-DD
+    m = re.search(r'(\d{4})-(\d{2})-(\d{2})', text)
+    if m:
+        try:
+            year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if 2019 <= year <= 2035 and 1 <= month <= 12 and 1 <= day <= 31:
+                return date(year, month, day)
+        except:
+            pass
+
+    # YYYY/MM/DD
+    m = re.search(r'(\d{4})/(\d{2})/(\d{2})', text)
+    if m:
+        try:
+            year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if 2019 <= year <= 2035 and 1 <= month <= 12 and 1 <= day <= 31:
+                return date(year, month, day)
+        except:
+            pass
+
+    return None
+
 def extract_deadline(text):
     """テキストから申請期限を抽出"""
     if not text:
         return ""
 
-    # 締切・期限キーワードの近くにある日付を優先
     deadline_patterns = [
-        # 「締切」「期限」「受付終了」などの近くの日付
         r'(?:締[切め]|期限|受付終了|申請期間|公募期間|募集期間|応募期限|提出期限).*?'
         r'令和\s*(\d+)\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
         r'(?:締[切め]|期限|受付終了|申請期間|公募期間|募集期間|応募期限|提出期限).*?'
         r'(\d{4})\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
-        # 令和年月日（単体）
         r'令和\s*(\d+)\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
-        # 西暦年月日
         r'(\d{4})\s*年\s*(\d+)\s*月\s*(\d+)\s*日',
-        # YYYY-MM-DD
         r'(\d{4})-(\d{2})-(\d{2})',
     ]
 
@@ -103,19 +156,36 @@ def extract_deadline(text):
                     continue
     return ""
 
-def fetch_deadline_from_page(url):
-    """個別ページにアクセスして申請期限を取得"""
+def extract_start_date_from_text(text):
+    """テキストから公募開始日・掲載日などを抽出してdateオブジェクトを返す"""
+    if not text:
+        return None
+
+    for kw in START_DATE_KEYWORDS:
+        # キーワードの近くにある日付を探す
+        pattern = re.escape(kw) + r'.{0,30}'
+        m = re.search(pattern, text)
+        if m:
+            snippet = m.group(0) + text[m.end():m.end()+30]
+            d = parse_japanese_date(snippet)
+            if d:
+                return d
+
+    return None
+
+def fetch_page_info(url):
+    """個別ページから申請期限・公募開始日を取得"""
     try:
         res = requests.get(url, headers=HEADERS, timeout=15)
         if res.status_code != 200:
-            return ""
+            return "", None
         res.encoding = res.apparent_encoding
         soup = BeautifulSoup(res.text, "lxml")
 
-        # メインコンテンツ部分を優先して検索
         main = soup.find("main") or soup.find(id="content") or soup.find(class_="content") or soup
 
-        # 締切関連のキーワードを含む要素を探す
+        # 申請期限を取得
+        deadline = ""
         deadline_keywords = ["締切","期限","受付終了","申請期間","公募期間","募集期間","受付期間"]
         for kw in deadline_keywords:
             for tag in main.find_all(string=re.compile(kw)):
@@ -123,14 +193,77 @@ def fetch_deadline_from_page(url):
                 text = parent.get_text(" ", strip=True)
                 deadline = extract_deadline(text)
                 if deadline:
-                    return deadline
+                    break
+            if deadline:
+                break
 
-        # ページ全体のテキストから抽出
+        # 公募開始日を取得
+        start_date = None
         full_text = main.get_text(" ", strip=True)
-        return extract_deadline(full_text)
+
+        # まずキーワード近辺から探す
+        start_date = extract_start_date_from_text(full_text)
+
+        # 見つからなければページ全体の最初の日付（最も古い日付）を使う
+        if not start_date:
+            all_dates = []
+            # 令和X年
+            for m in re.finditer(r'令和\s*(\d+)\s*年\s*(\d+)\s*月\s*(\d+)\s*日', full_text):
+                try:
+                    d = date(2018 + int(m.group(1)), int(m.group(2)), int(m.group(3)))
+                    if 2019 <= d.year <= 2035:
+                        all_dates.append(d)
+                except:
+                    pass
+            # YYYY年
+            for m in re.finditer(r'(\d{4})\s*年\s*(\d+)\s*月\s*(\d+)\s*日', full_text):
+                try:
+                    d = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+                    if 2019 <= d.year <= 2035:
+                        all_dates.append(d)
+                except:
+                    pass
+            if all_dates:
+                # 最も古い日付を開始日と見なす
+                start_date = min(all_dates)
+
+        if not deadline:
+            deadline = extract_deadline(full_text)
+
+        return deadline, start_date
+
     except Exception as e:
-        logger.debug(f"期限取得エラー ({url[-40:]}): {e}")
-        return ""
+        logger.debug(f"ページ取得エラー ({url[-40:]}): {e}")
+        return "", None
+
+def is_expired_by_start_date(start_date):
+    """開始日から1年半以上経過していたらTrue"""
+    if not start_date:
+        return False
+    return (date.today() - start_date).days >= EXPIRY_DAYS
+
+def enrich_items(items, max_fetch=60):
+    """期限未取得のアイテムについて個別ページから期限・開始日を取得"""
+    no_deadline = [item for item in items if not item.get("deadline")]
+    logger.info(f"期限未取得: {len(no_deadline)}件 → 最大{max_fetch}件を個別取得")
+    fetched = 0
+    for item in no_deadline:
+        if fetched >= max_fetch:
+            break
+        if "jgrants-portal" in item.get("url", ""):
+            continue
+        deadline, start_date = fetch_page_info(item["url"])
+        if deadline:
+            item["deadline"] = deadline
+        if start_date:
+            item["start_date"] = str(start_date)
+            # 開始日から1年半以上経過 → 期限切れフラグ
+            if is_expired_by_start_date(start_date) and not item.get("deadline"):
+                item["expired_by_age"] = True
+        fetched += 1
+        time.sleep(0.5)
+    logger.info(f"個別取得完了: {fetched}件処理")
+    return items
 
 def scrape_page(url, pref, org, link_pattern=None, title_filter=True, fetch_detail=False):
     items = []
@@ -158,15 +291,16 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True, fetch_deta
             if link_pattern and not re.search(link_pattern, href):
                 continue
 
-            # リンクテキスト周辺から期限を抽出
             parent_text = ""
             for p in [a.parent, a.parent.parent if a.parent else None]:
                 if p:
                     parent_text = p.get_text(" ", strip=True)
                     break
             deadline = extract_deadline(parent_text)
+            # リスト上の日付から開始日も推定
+            start_date_obj = extract_start_date_from_text(parent_text)
 
-            items.append({
+            item = {
                 "id": make_id(full_url),
                 "title": title[:120],
                 "org": org,
@@ -178,29 +312,16 @@ def scrape_page(url, pref, org, link_pattern=None, title_filter=True, fetch_deta
                 "url": full_url,
                 "source": "自治体",
                 "date": str(date.today()),
-            })
+            }
+            if start_date_obj:
+                item["start_date"] = str(start_date_obj)
+                if is_expired_by_start_date(start_date_obj) and not deadline:
+                    item["expired_by_age"] = True
+
+            items.append(item)
         logger.info(f"    → {len(items)}件")
     except Exception as e:
         logger.warning(f"  エラー ({org}): {e}")
-    return items
-
-def enrich_deadlines(items, max_fetch=60):
-    """期限未取得のアイテムについて個別ページから期限を取得"""
-    no_deadline = [item for item in items if not item.get("deadline")]
-    logger.info(f"期限未取得: {len(no_deadline)}件 → 最大{max_fetch}件を個別取得")
-    fetched = 0
-    for item in no_deadline:
-        if fetched >= max_fetch:
-            break
-        # 国・省庁のJグランツURLはスキップ（期限情報が別途ある）
-        if "jgrants-portal" in item.get("url",""):
-            continue
-        deadline = fetch_deadline_from_page(item["url"])
-        if deadline:
-            item["deadline"] = deadline
-            fetched += 1
-        time.sleep(0.5)
-    logger.info(f"期限取得完了: {fetched}件更新")
     return items
 
 def scrape_tokyo_portal():
@@ -241,7 +362,9 @@ def scrape_tokyo_portal():
                         parent_text = p.get_text(" ", strip=True)
                         break
                 deadline = extract_deadline(parent_text)
-                items.append({
+                start_date_obj = extract_start_date_from_text(parent_text)
+
+                item = {
                     "id": make_id(full_url),
                     "title": title[:120],
                     "org": org,
@@ -253,7 +376,13 @@ def scrape_tokyo_portal():
                     "url": full_url,
                     "source": "自治体",
                     "date": str(date.today()),
-                })
+                }
+                if start_date_obj:
+                    item["start_date"] = str(start_date_obj)
+                    if is_expired_by_start_date(start_date_obj) and not deadline:
+                        item["expired_by_age"] = True
+
+                items.append(item)
             logger.info(f"    → {len(items)}件累計")
             time.sleep(2)
         except Exception as e:
@@ -298,7 +427,9 @@ def scrape_kanagawa_tag(pages=5):
                             parent_text = p.get_text(" ", strip=True)
                             break
                     deadline = extract_deadline(parent_text)
-                    items.append({
+                    start_date_obj = extract_start_date_from_text(parent_text)
+
+                    item = {
                         "id": make_id(full_url),
                         "title": title[:120],
                         "org": "神奈川県",
@@ -310,7 +441,13 @@ def scrape_kanagawa_tag(pages=5):
                         "url": full_url,
                         "source": "自治体",
                         "date": str(date.today()),
-                    })
+                    }
+                    if start_date_obj:
+                        item["start_date"] = str(start_date_obj)
+                        if is_expired_by_start_date(start_date_obj) and not deadline:
+                            item["expired_by_age"] = True
+
+                    items.append(item)
                 logger.info(f"    → 新規{found}件")
                 if not soup.find("a", string=re.compile("次")):
                     break
@@ -356,7 +493,9 @@ def scrape_kanagawa_tag(pages=5):
                         parent_text = p.get_text(" ", strip=True)
                         break
                 deadline = extract_deadline(parent_text)
-                items.append({
+                start_date_obj = extract_start_date_from_text(parent_text)
+
+                item = {
                     "id": make_id(full_url),
                     "title": title[:120],
                     "org": org,
@@ -368,7 +507,13 @@ def scrape_kanagawa_tag(pages=5):
                     "url": full_url,
                     "source": "自治体",
                     "date": str(date.today()),
-                })
+                }
+                if start_date_obj:
+                    item["start_date"] = str(start_date_obj)
+                    if is_expired_by_start_date(start_date_obj) and not deadline:
+                        item["expired_by_age"] = True
+
+                items.append(item)
             logger.info(f"    → 新規{found}件")
             time.sleep(2)
         except Exception as e:
@@ -442,10 +587,10 @@ def main():
             seen_ids.add(item["id"])
             all_new_items.append(item)
 
-    # 期限未取得の自治体アイテムを個別ページから補完
-    logger.info("=== 期限情報を個別ページから補完 ===")
+    # 期限未取得の自治体アイテムを個別ページから補完（開始日も取得）
+    logger.info("=== 期限・開始日情報を個別ページから補完 ===")
     local_new = [i for i in all_new_items if i.get("source") == "自治体"]
-    enrich_deadlines(local_new, max_fetch=60)
+    enrich_items(local_new, max_fetch=60)
 
     logger.info(f"新規スクレイピング合計: {len(all_new_items)}件")
 
@@ -476,11 +621,26 @@ def main():
             existing.insert(0, item)
             existing_ids.add(item["id"])
         else:
-            # 既存アイテムの期限を更新（新たに取得できた場合）
+            # 既存アイテムの期限・開始日を更新（新たに取得できた場合）
             for ex in existing:
-                if ex["id"] == item["id"] and item.get("deadline") and not ex.get("deadline"):
-                    ex["deadline"] = item["deadline"]
+                if ex["id"] == item["id"]:
+                    if item.get("deadline") and not ex.get("deadline"):
+                        ex["deadline"] = item["deadline"]
+                    if item.get("start_date") and not ex.get("start_date"):
+                        ex["start_date"] = item["start_date"]
+                    if item.get("expired_by_age"):
+                        ex["expired_by_age"] = True
                     break
+
+    # 既存アイテムのうち start_date があるものに expired_by_age を付与
+    for item in existing:
+        if item.get("start_date") and not item.get("deadline") and not item.get("expired_by_age"):
+            try:
+                sd = date.fromisoformat(item["start_date"])
+                if is_expired_by_start_date(sd):
+                    item["expired_by_age"] = True
+            except:
+                pass
 
     cutoff = str(date.today() - timedelta(days=90))
     combined = [r for r in existing if r.get("date","") >= cutoff]
