@@ -169,6 +169,15 @@ const TODAY=new Date().toISOString().slice(0,10);
 
 // 期限切れ判定
 function isExpired(item){
+  // 1. expired_by_ageフラグ（開始日から1年半以上経過）
+  if(item.expired_by_age) return true;
+  // 2. start_dateがあれば計算（547日 = 1年半）
+  if(item.start_date){
+    const start=new Date(item.start_date);
+    const diffDays=(new Date()-start)/(1000*60*60*24);
+    if(diffDays>=547) return true;
+  }
+  // 3. 明示的な申請期限がある場合
   if(!item.deadline) return false;
   const d=item.deadline;
   // 「令和X年Y月Z日」パース
