@@ -1,5 +1,5 @@
 {
-  "updated": "2026年03月08日 05:04",
+  "updated": "2026年03月08日 05:47",
   "count": 222,
   "total": 1450,
   "items": [
@@ -2107,7 +2107,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/ichiran/index_end.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-07-07"
     },
     {
       "id": "2c9483f555180d32",
@@ -2120,7 +2121,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/koureisya_hanrokaitaku.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2024-07-29"
     },
     {
       "id": "6543ead01f760c7d",
@@ -2133,7 +2135,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shogaisha.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2024-11-01"
     },
     {
       "id": "1e76c8e3907f6f85",
@@ -2159,7 +2162,8 @@
       "category": "IT・デジタル",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/digital_katsuyou.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-29"
     },
     {
       "id": "e389e0235b7f0ea3",
@@ -2185,7 +2189,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shijo.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-12"
     },
     {
       "id": "d72741d762eb24b8",
@@ -2198,7 +2203,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/zeroemi_hanro.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-12"
     },
     {
       "id": "12766aa4c2ab7a23",
@@ -2211,7 +2217,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/r7tenjikai.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-12"
     },
     {
       "id": "8189c9aa9661f7bc",
@@ -2250,7 +2257,8 @@
       "category": "省エネ・環境",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/supply_chain/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-11-01"
     },
     {
       "id": "091a7a3b1069d644",
@@ -2263,7 +2271,8 @@
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/building_energy.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-10-31"
     },
     {
       "id": "02928bb9229f78d5",
@@ -2276,7 +2285,8 @@
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/shien/zeroemi/projects/josei.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-14"
     },
     {
       "id": "8513e171fe3f5081",
@@ -2289,7 +2299,8 @@
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/energy_jikyu.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-04-15"
     },
     {
       "id": "14aa870ae4f22c49",
@@ -2302,7 +2313,8 @@
       "category": "IT・デジタル",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/setsubijosei/yakushin.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-04-24"
     },
     {
       "id": "3eacbed426aa6c4b",
@@ -2315,7 +2327,8 @@
       "category": "創業・起業",
       "url": "https://www.tokyo-kosha.or.jp/chizai/startup/handson/",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-02-13"
     },
     {
       "id": "fb96250684da602c",
@@ -2328,7 +2341,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/seihinka/",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-12-02"
     },
     {
       "id": "c2b71e24e3426509",
@@ -2341,7 +2355,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/nichetop/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-06-16"
     },
     {
       "id": "aa2a81929e2d1b96",
@@ -2354,7 +2369,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/isho/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-04-22"
     },
     {
       "id": "4df370eba84ee4c3",
@@ -2367,7 +2383,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/shohyo/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-04-22"
     },
     {
       "id": "df380da365f30f72",
@@ -2380,7 +2397,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/shingai/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-10-03"
     },
     {
       "id": "2e9e347b73d19872",
@@ -2393,7 +2411,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/chosa/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-10-03"
     },
     {
       "id": "09ed74f6f849427e",
@@ -2406,7 +2425,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/chosaku/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-10-03"
     },
     {
       "id": "4b0e3b0c92a651c9",
@@ -2419,7 +2439,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/tokkyo/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-08"
     },
     {
       "id": "0006d4d444055f88",
@@ -2432,7 +2453,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/jitsushin/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-08"
     },
     {
       "id": "bbff9f5fbf8720b5",
@@ -2445,7 +2467,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/syouhyoutaisaku/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-12-01"
     },
     {
       "id": "0c289f82f3d52835",
@@ -2458,7 +2481,8 @@
       "category": "IT・デジタル",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/digital-tool.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2024-07-31"
     },
     {
       "id": "ad32a6c25bb7d7af",
@@ -2471,7 +2495,8 @@
       "category": "IT・デジタル",
       "url": "https://iot-robot.jp/business/dx2024-02/",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-11-11"
     },
     {
       "id": "8e269a03bde620d8",
@@ -2484,7 +2509,8 @@
       "category": "省エネ・環境",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kankyo-ippan/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-02"
     },
     {
       "id": "36a3165f6e4cb7ca",
@@ -2497,7 +2523,8 @@
       "category": "省エネ・環境",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shokibo-sokuo/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-11-21"
     },
     {
       "id": "781b98d6b2424170",
@@ -2510,7 +2537,8 @@
       "category": "省エネ・環境",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/jyudoukitsuen-boushitaisaku.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-02-20"
     },
     {
       "id": "ff320fd3c46b0338",
@@ -2523,7 +2551,8 @@
       "category": "雇用・人材",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kankyo-juuten/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-02-24"
     },
     {
       "id": "d2a87755bb04c1f9",
@@ -2536,7 +2565,8 @@
       "category": "創業・起業",
       "url": "https://wakajo-shotengai.com/",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2023-04-21"
     },
     {
       "id": "a6a3583e8af5118a",
@@ -2549,7 +2579,8 @@
       "category": "創業・起業",
       "url": "https://startup-station.jp/m2/services/sogyokassei/",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-04-07"
     },
     {
       "id": "9d8ea31d95e02bfc",
@@ -2562,7 +2593,8 @@
       "category": "創業・起業",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/medical/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "f1017a3683dca85a",
@@ -2575,7 +2607,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/zeroemi_kaihatsu.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "7bc28bf26edc6720",
@@ -2588,7 +2621,8 @@
       "category": "省エネ・環境",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/chiiki.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "eb91176db63e1b55",
@@ -2601,7 +2635,8 @@
       "category": "創業・起業",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/tokyo-innovation.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "7d65de6e9baa2780",
@@ -2614,7 +2649,8 @@
       "category": "創業・起業",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/femtech/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "e4a9aa05b19cb855",
@@ -2627,7 +2663,8 @@
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/shien/monozukuri/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "0d957a33d4fe9905",
@@ -2640,7 +2677,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/shien/syakai-jissou/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-05"
     },
     {
       "id": "8d25e66c442b39ca",
@@ -2653,7 +2691,8 @@
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/setsubijosei/setsubi_kinkyu/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-12-08"
     },
     {
       "id": "56438415772f496a",
@@ -2666,7 +2705,8 @@
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/multi_energy/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-12-08"
     },
     {
       "id": "0a2908eeaa910214",
@@ -2679,7 +2719,8 @@
       "category": "物価・光熱費対策",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/tokkolpg/shienkin5th.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-12-08"
     },
     {
       "id": "2bc65ea7cb83e8ac",
@@ -2705,7 +2746,8 @@
       "category": "防災・安全",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/setsubijosei/bcp.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-14"
     },
     {
       "id": "9ef6e89afe558f9a",
@@ -2718,7 +2760,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/setsubijosei/led.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-14"
     },
     {
       "id": "4ccc9d8b49fa5be8",
@@ -2731,7 +2774,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/setsubijosei/cyber.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-14"
     },
     {
       "id": "670b0c19150c523f",
@@ -2744,7 +2788,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/anzen-anshin.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-03-31"
     },
     {
       "id": "78cb48273fe0cc7c",
@@ -2757,7 +2802,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kaigoneeds/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-29"
     },
     {
       "id": "aa9a6259fe3ac37a",
@@ -2770,7 +2816,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/koureisha/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-29"
     },
     {
       "id": "02c85b16a2d7ee66",
@@ -2783,7 +2830,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/keiei_togo/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-07-16"
     },
     {
       "id": "5899d313144af9a2",
@@ -2796,7 +2844,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/uchu-josei/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-09-19"
     },
     {
       "id": "05144e15b6d81b2e",
@@ -2809,7 +2858,8 @@
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/senior-hanro/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-05-12"
     },
     {
       "id": "9a349bd68a030d53",
@@ -2822,7 +2872,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kairyo.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-10-01"
     },
     {
       "id": "dfd74e85fe3c6407",
@@ -2835,7 +2886,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/chakushu.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-10-01"
     },
     {
       "id": "307b01163138708b",
@@ -2848,7 +2900,8 @@
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shinseihin.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-03-27"
     },
     {
       "id": "3cbe0ba2359d6056",
@@ -2887,7 +2940,8 @@
       "category": "IT・デジタル",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/5g-dx_gx/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2024-07-01"
     },
     {
       "id": "e0e403419ac05718",
@@ -2900,7 +2954,8 @@
       "category": "IT・デジタル",
       "url": "https://iot-robot.jp/business/dxsubsidy/",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2025-11-11"
     },
     {
       "id": "a0WJ200000CDWSWMA5",
