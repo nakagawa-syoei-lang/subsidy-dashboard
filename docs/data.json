@@ -1,8 +1,34 @@
 {
-  "updated": "2026年03月12日 05:09",
-  "count": 212,
-  "total": 1450,
+  "updated": "2026年03月13日 05:06",
+  "count": 214,
+  "total": 1452,
   "items": [
+    {
+      "id": "efccaf445e1de7b1",
+      "title": "医療機関におけるＡＩ技術活用促進事業の活用実績",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "研究開発",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/ai_katuyou",
+      "source": "自治体",
+      "date": "2026-03-13"
+    },
+    {
+      "id": "ec7f93f0a4718225",
+      "title": "診療所診療情報デジタル推進事業",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "IT・デジタル",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/clinic_digital_suishin.html",
+      "source": "自治体",
+      "date": "2026-03-13"
+    },
     {
       "id": "ae94df514899a448",
       "title": "地域医療介護連携ネットワーク",
