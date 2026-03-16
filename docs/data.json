@@ -1,8 +1,34 @@
 {
-  "updated": "2026年03月15日 05:28",
-  "count": 214,
-  "total": 1452,
+  "updated": "2026年03月16日 06:01",
+  "count": 216,
+  "total": 1454,
   "items": [
+    {
+      "id": "f00c3e17b98c930b",
+      "title": "埼玉県加工用米等価格高騰対策支援金について",
+      "org": "埼玉県産業労働部",
+      "pref": "埼玉県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "物価・光熱費対策",
+      "url": "https://www.pref.saitama.lg.jp/a0803/komekakakukoutoushien.html",
+      "source": "自治体",
+      "date": "2026-03-16"
+    },
+    {
+      "id": "6d7cd2e3207d9c94",
+      "title": "埼玉県中小企業省力化支援事業について",
+      "org": "埼玉県産業労働部",
+      "pref": "埼玉県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "補助金・助成金（一般）",
+      "url": "https://www.pref.saitama.lg.jp/a0803/shoryokuka/index.html",
+      "source": "自治体",
+      "date": "2026-03-16"
+    },
     {
       "id": "efccaf445e1de7b1",
       "title": "医療機関におけるＡＩ技術活用促進事業の活用実績",
