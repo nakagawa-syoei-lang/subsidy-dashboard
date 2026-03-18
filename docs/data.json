@@ -1,8 +1,21 @@
 {
-  "updated": "2026年03月17日 05:15",
-  "count": 216,
-  "total": 1454,
+  "updated": "2026年03月18日 05:21",
+  "count": 217,
+  "total": 1455,
   "items": [
+    {
+      "id": "c8b2ca8fedad1304",
+      "title": "医療政策部 新規事業等（医療機関向け）",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "医療・福祉",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/jigyo_information",
+      "source": "自治体",
+      "date": "2026-03-18"
+    },
     {
       "id": "f00c3e17b98c930b",
       "title": "埼玉県加工用米等価格高騰対策支援金について",
