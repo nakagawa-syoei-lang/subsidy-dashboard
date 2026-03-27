@@ -1,8 +1,34 @@
 {
-  "updated": "2026年03月26日 05:52",
+  "updated": "2026年03月27日 05:53",
   "count": 217,
-  "total": 1455,
+  "total": 1457,
   "items": [
+    {
+      "id": "0f30c92f25f97d57",
+      "title": "医療・介護等支援パッケージ（医療分野）（厚生労働省令和７年度補正予算）",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "雇用・人材",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/r7shien_package",
+      "source": "自治体",
+      "date": "2026-03-27"
+    },
+    {
+      "id": "e5bbf26b9259cf32",
+      "title": "令和8年度募集中展示会出展助成事業展示会出展等に利用できる助成金【担当】助成課（TEL：03-3251-7895）助成限度額150万円助成率2/3以内中小企業者個人事業主",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "販路拡大",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/tenjikai/r8/index.html",
+      "source": "自治体",
+      "date": "2026-03-27"
+    },
     {
       "id": "c8b2ca8fedad1304",
       "title": "医療政策部 新規事業等（医療機関向け）",
