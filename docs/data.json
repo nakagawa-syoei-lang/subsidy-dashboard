@@ -1,6 +1,6 @@
 {
-  "updated": "2026年04月07日 01:08",
-  "count": 221,
+  "updated": "2026年04月08日 01:09",
+  "count": 218,
   "total": 1472,
   "items": [
     {
@@ -101,7 +101,7 @@
       "org": "神奈川県中小企業支援課",
       "pref": "神奈川県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年3月28日締切",
       "target": "",
       "category": "IT・デジタル",
       "url": "https://www.pref.kanagawa.jp/docs/m2w/shokibo_digital/r7.html",
@@ -218,12 +218,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年5月15日締切",
       "target": "",
       "category": "販路拡大",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/tenjikai/r8/index.html",
       "source": "自治体",
-      "date": "2026-03-27"
+      "date": "2026-03-27",
+      "start_date": "2026-05-15"
     },
     {
       "id": "c8b2ca8fedad1304",
@@ -2272,7 +2273,7 @@
       "org": "神奈川県中小企業支援課",
       "pref": "神奈川県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年3月28日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.kanagawa.jp/docs/jf2/seisansei/r7.html",
