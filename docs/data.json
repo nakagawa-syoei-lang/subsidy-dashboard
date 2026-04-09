@@ -1,8 +1,21 @@
 {
-  "updated": "2026年04月08日 01:09",
+  "updated": "2026年04月09日 00:59",
   "count": 218,
-  "total": 1472,
+  "total": 1473,
   "items": [
+    {
+      "id": "3b4e21cde93aa866",
+      "title": "神奈川県事業承継補助金（令和8年度実施分）",
+      "org": "神奈川県中小企業支援課",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "令和8年4月1日締切",
+      "target": "",
+      "category": "補助金・助成金（一般）",
+      "url": "https://www.pref.kanagawa.jp/docs/jf2/r8_shoukei.html",
+      "source": "自治体",
+      "date": "2026-04-09"
+    },
     {
       "id": "bc8c60add87d40e1",
       "title": "東京都地域医療支援ドクター事業　支援勤務が予定される医療機関等のリンク集",
