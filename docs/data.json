@@ -1,8 +1,21 @@
 {
-  "updated": "2026年04月10日 01:09",
-  "count": 218,
-  "total": 1474,
+  "updated": "2026年04月11日 01:05",
+  "count": 219,
+  "total": 1475,
   "items": [
+    {
+      "id": "7fc976cb03cd2ea7",
+      "title": "令和８年度東京都在宅歯科医療設備整備事業",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "設備・機械",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/zaitakusikairyousetubiseibi08",
+      "source": "自治体",
+      "date": "2026-04-11"
+    },
     {
       "id": "f2d935517fbe0f68",
       "title": "障害者歯科医療設備整備補助事業（令和８年度）",
