@@ -1,8 +1,21 @@
 {
-  "updated": "2026年04月30日 01:28",
+  "updated": "2026年05月01日 01:31",
   "count": 218,
-  "total": 1476,
+  "total": 1477,
   "items": [
+    {
+      "id": "c2e02097a003a7db",
+      "title": "ＧＸ関連産業創出へ向けた早期社会実装化支援事業",
+      "org": "東京都産業労働局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "補助金・助成金（一般）",
+      "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/energy/menu/gx",
+      "source": "自治体",
+      "date": "2026-05-01"
+    },
     {
       "id": "c7248273e993acfe",
       "title": "病院間の患者搬送のための病院救急車活用促進事業",
