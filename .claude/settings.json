@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python scripts/collect.py)",
+      "Bash(pip install *)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add docs/data.json docs/last_updated.txt CLAUDE.md .claude/*)",
+      "Bash(find . -not -path '*/.git/*')",
+      "Bash(grep *)"
+    ],
+    "deny": []
+  }
+}
