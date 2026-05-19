@@ -1,8 +1,22 @@
 {
-  "updated": "2026年05月18日 01:55",
-  "count": 224,
-  "total": 1484,
+  "updated": "2026年05月19日 01:55",
+  "count": 225,
+  "total": 1485,
   "items": [
+    {
+      "id": "496815621e5f226f",
+      "title": "募集前事業承継を契機とした成長支援事業（販路開拓コース）事業承継後の後継者による新規販路開拓事業を、東京都の助成金で支援【申請受付期間】第1回：令和8年7月1日から7月31日16時まで第2回：令和8年10月13日から11月12日16時まで【",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "令和8年7月1日締切",
+      "target": "",
+      "category": "販路拡大",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shokei-seicho-hanro/index.html",
+      "source": "自治体",
+      "date": "2026-05-19",
+      "start_date": "2026-07-01"
+    },
     {
       "id": "63fb6a7d06ed223a",
       "title": "募集前課題解決型技術開発促進事業都市課題の解決に向けた製品・サービスの試作品開発・改良費用に利用できる助成金【申請受付期間】第1回：令和8年6月4日(木)～7月3日(金)17時まで第2回：令和8年10月9日(金)～11月13日(金)17時ま",
@@ -2620,12 +2634,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年6月15日締切",
       "target": "",
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/business_conversion.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-06-04"
     },
     {
       "id": "c97b4164461d126f",
@@ -2680,7 +2695,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shoukei.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2023-10-01"
     },
     {
       "id": "bacd870ee020c5aa",
@@ -2693,7 +2709,8 @@
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shokei-seicho/index.html",
       "source": "自治体",
-      "date": "2026-02-26"
+      "date": "2026-02-26",
+      "start_date": "2026-07-01"
     },
     {
       "id": "eaf197e28f478d34",
