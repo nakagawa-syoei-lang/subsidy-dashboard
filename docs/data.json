@@ -1,8 +1,34 @@
 {
-  "updated": "2026年05月25日 01:58",
-  "count": 224,
-  "total": 1487,
+  "updated": "2026年05月26日 01:51",
+  "count": 217,
+  "total": 1489,
   "items": [
+    {
+      "id": "883508d67ce95645",
+      "title": "令和8年度 埼玉県中小企業省力化支援事業補助金【新規導入】",
+      "org": "埼玉県産業労働部",
+      "pref": "埼玉県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "補助金・助成金（一般）",
+      "url": "https://www.pref.saitama.lg.jp/a0805/shoryokuka/sinnkidounyu_20260525.html",
+      "source": "自治体",
+      "date": "2026-05-26"
+    },
+    {
+      "id": "8c5b48eca2342932",
+      "title": "令和8年度 埼玉県中小企業省力化支援事業補助金【設備更新】",
+      "org": "埼玉県産業労働部",
+      "pref": "埼玉県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "設備・機械",
+      "url": "https://www.pref.saitama.lg.jp/a0805/shoryokuka/setsubikousin_20260525.html",
+      "source": "自治体",
+      "date": "2026-05-26"
+    },
     {
       "id": "ffb129fd1ee91c6b",
       "title": "”ものづくり”を支える「かながわ中小企業モデル工場」を指定！",
