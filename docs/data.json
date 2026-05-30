@@ -1,8 +1,21 @@
 {
-  "updated": "2026年05月29日 01:52",
-  "count": 226,
-  "total": 229,
+  "updated": "2026年05月30日 01:48",
+  "count": 227,
+  "total": 230,
   "items": [
+    {
+      "id": "1e594bbc4b5cdfae",
+      "title": "東京都医療機関等物価高騰緊急対策支援金（令和８年度）",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "物価・光熱費対策",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/iryo-bukka4",
+      "source": "自治体",
+      "date": "2026-05-30"
+    },
     {
       "id": "425d4cd8138d31ff",
       "title": "物価高騰による特別高圧受電病院の電気代に対する支援について",
