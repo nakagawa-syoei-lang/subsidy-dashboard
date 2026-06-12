@@ -1,7 +1,7 @@
 {
-  "updated": "2026年06月11日 02:09",
+  "updated": "2026年06月12日 02:06",
   "count": 226,
-  "total": 231,
+  "total": 229,
   "items": [
     {
       "id": "8745278989ae7b5d",
@@ -3042,32 +3042,6 @@
       "url": "https://www.pref.saitama.lg.jp/a0803/shoryokuka/index.html",
       "source": "自治体",
       "date": "2026-03-16"
-    },
-    {
-      "id": "efccaf445e1de7b1",
-      "title": "医療機関におけるＡＩ技術活用促進事業の活用実績",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "研究開発",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/ai_katuyou",
-      "source": "自治体",
-      "date": "2026-03-13"
-    },
-    {
-      "id": "ec7f93f0a4718225",
-      "title": "診療所診療情報デジタル推進事業",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "IT・デジタル",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/clinic_digital_suishin.html",
-      "source": "自治体",
-      "date": "2026-03-13"
     }
   ]
 }
