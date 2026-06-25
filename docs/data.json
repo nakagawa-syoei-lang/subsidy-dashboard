@@ -1,8 +1,36 @@
 {
-  "updated": "2026年06月24日 01:51",
-  "count": 228,
-  "total": 232,
+  "updated": "2026年06月25日 01:55",
+  "count": 230,
+  "total": 234,
   "items": [
+    {
+      "id": "5f96c31e58532db9",
+      "title": "募集前石油供給不足に伴う課題解決に向けた製品・サービス等の開発・改良助成石油代替製品や、原材料・エネルギーを削減する製品・サービス等の開発・改良を支援します。【申請受付期間】令和8年7月31日(金)～10月9日(金)【担当】助成課（TEL:",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "令和8年7月31日締切",
+      "target": "",
+      "category": "創業・起業",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/hisekiyu_kaihatsu/index.html",
+      "source": "自治体",
+      "date": "2026-06-25",
+      "start_date": "2026-07-31"
+    },
+    {
+      "id": "c0bd3a58c263f9be",
+      "title": "募集中中東情勢による原材料価格高騰に伴う経営基盤安定化緊急対策事業中東情勢の影響による原材料価格高騰等の影響を回避する取組に対して、必要となる費用を助成します。【担当】中東情勢による原材料価格高騰に伴う経営基盤安定化緊急対策事業　事務局(T",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "令和8年7月31日締切",
+      "target": "",
+      "category": "物価・光熱費対策",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/chuto-kinkyu/index.html",
+      "source": "自治体",
+      "date": "2026-06-25",
+      "start_date": "2026-07-31"
+    },
     {
       "id": "6d99a2becd56067b",
       "title": "物価高騰の影響を受ける特別高圧受電病院の電気代に対する支援について",
