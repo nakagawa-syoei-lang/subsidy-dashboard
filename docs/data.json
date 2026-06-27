@@ -1,8 +1,35 @@
 {
-  "updated": "2026年06月26日 01:58",
+  "updated": "2026年06月27日 01:51",
   "count": 231,
-  "total": 233,
+  "total": 235,
   "items": [
+    {
+      "id": "0f30c92f25f97d57",
+      "title": "医療・介護等支援パッケージ（医療分野）（厚生労働省令和７年度補正予算）",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "雇用・人材",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/r7shien_package",
+      "source": "自治体",
+      "date": "2026-06-27"
+    },
+    {
+      "id": "e5bbf26b9259cf32",
+      "title": "令和8年度募集中展示会出展助成事業展示会出展等に利用できる助成金【担当】助成課（TEL：03-3251-7895）助成限度額150万円助成率2/3以内中小企業者個人事業主",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "令和8年8月10日締切",
+      "target": "",
+      "category": "販路拡大",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/tenjikai/r8/index.html",
+      "source": "自治体",
+      "date": "2026-06-27",
+      "start_date": "2026-08-10"
+    },
     {
       "id": "d98bc783f7075482",
       "title": "令和8年度申請受付前地域資源活用製品等の開発・販売促進事業（開発・改良フェーズ）「プラン作成支援」を利用することで、助成金の申請が可能になります。この助成金は、東京の地域資源活用や都市・地域課題の解決に資する製品・サービスの開発・改良に利用",
