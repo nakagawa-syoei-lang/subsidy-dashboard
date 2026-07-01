@@ -1,7 +1,7 @@
 {
-  "updated": "2026年06月30日 01:56",
+  "updated": "2026年07月01日 02:02",
   "count": 230,
-  "total": 235,
+  "total": 232,
   "items": [
     {
       "id": "cc4905a41981e33f",
@@ -3085,45 +3085,6 @@
       "source": "自治体",
       "date": "2026-04-03",
       "start_date": "2026-04-09"
-    },
-    {
-      "id": "7700dc8e54ca0d03",
-      "title": "助成事業におけるリユースバッテリーの取扱いについて",
-      "org": "東京都産業労働局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "補助金・助成金（一般）",
-      "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/energy/menu/reuse_battery_handling",
-      "source": "自治体",
-      "date": "2026-04-01"
-    },
-    {
-      "id": "4f277ae5de1f237f",
-      "title": "令和7年度小規模事業者デジタル化支援推進事業費補助金について",
-      "org": "神奈川県中小企業支援課",
-      "pref": "神奈川県",
-      "amount": "",
-      "deadline": "令和7年3月28日締切",
-      "target": "",
-      "category": "IT・デジタル",
-      "url": "https://www.pref.kanagawa.jp/docs/m2w/shokibo_digital/r7.html",
-      "source": "自治体",
-      "date": "2026-04-01"
-    },
-    {
-      "id": "152ee671b989ce8c",
-      "title": "中小製造業等特別高圧受電者支援事業",
-      "org": "神奈川県中小企業支援課",
-      "pref": "神奈川県",
-      "amount": "",
-      "deadline": "令和8年3月23日締切",
-      "target": "",
-      "category": "設備・機械",
-      "url": "https://www.pref.kanagawa.jp/docs/m2w/tokubetsukoatsu2023.html",
-      "source": "自治体",
-      "date": "2026-04-01"
     }
   ]
 }
