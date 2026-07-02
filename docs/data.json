@@ -1,8 +1,34 @@
 {
-  "updated": "2026年07月01日 02:02",
+  "updated": "2026年07月02日 01:55",
   "count": 230,
-  "total": 232,
+  "total": 234,
   "items": [
+    {
+      "id": "4f277ae5de1f237f",
+      "title": "令和7年度神奈川県小規模事業者デジタル化支援推進事業費補助金について",
+      "org": "神奈川県中小企業支援課",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "令和7年3月28日締切",
+      "target": "",
+      "category": "IT・デジタル",
+      "url": "https://www.pref.kanagawa.jp/docs/m2w/shokibo_digital/r7.html",
+      "source": "自治体",
+      "date": "2026-07-02"
+    },
+    {
+      "id": "152ee671b989ce8c",
+      "title": "中小製造業等特別高圧受電者支援事業",
+      "org": "神奈川県中小企業支援課",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "令和8年3月23日締切",
+      "target": "",
+      "category": "設備・機械",
+      "url": "https://www.pref.kanagawa.jp/docs/m2w/tokubetsukoatsu2023.html",
+      "source": "自治体",
+      "date": "2026-07-02"
+    },
     {
       "id": "cc4905a41981e33f",
       "title": "埼玉県中小企業省力化支援事業について",
