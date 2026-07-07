@@ -1,7 +1,7 @@
 {
-  "updated": "2026年07月06日 01:32",
-  "count": 231,
-  "total": 235,
+  "updated": "2026年07月07日 01:32",
+  "count": 226,
+  "total": 230,
   "items": [
     {
       "id": "89f5a836156b74d3",
@@ -3059,71 +3059,6 @@
       "url": "https://www.pref.kanagawa.jp/docs/jf2/r8_shoukei.html",
       "source": "自治体",
       "date": "2026-04-09"
-    },
-    {
-      "id": "bc8c60add87d40e1",
-      "title": "東京都地域医療支援ドクター事業　支援勤務が予定される医療機関等のリンク集",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "医療・福祉",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/sonota/shienkinmu_rink",
-      "source": "自治体",
-      "date": "2026-04-07"
-    },
-    {
-      "id": "b1ddb04b89199826",
-      "title": "専門医認定支援事業（補助金）",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "補助金・助成金（一般）",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/sonota/jinzai-senmoni_hojo",
-      "source": "自治体",
-      "date": "2026-04-07"
-    },
-    {
-      "id": "94c09e720cb9f3db",
-      "title": "東京都医療勤務環境改善支援センター・病院勤務者勤務環境改善事業",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "省エネ・環境",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/sonota/kinmukankyoukaizen",
-      "source": "自治体",
-      "date": "2026-04-07"
-    },
-    {
-      "id": "8bc61ec03ebcb39f",
-      "title": "東京都における特定機能病院",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "医療・福祉",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/sonota/tokuteikinou",
-      "source": "自治体",
-      "date": "2026-04-07"
-    },
-    {
-      "id": "c297c1c4a072660f",
-      "title": "認定制度を活用した医師少数区域における勤務の推進事業（補助金）",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "補助金・助成金（一般）",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/sonota/jinnzai-syousuukuiki_hojyo",
-      "source": "自治体",
-      "date": "2026-04-07"
     }
   ]
 }
