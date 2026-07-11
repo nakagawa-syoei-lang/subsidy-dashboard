@@ -1,8 +1,21 @@
 {
-  "updated": "2026年07月10日 01:22",
+  "updated": "2026年07月11日 01:15",
   "count": 226,
   "total": 229,
   "items": [
+    {
+      "id": "f2d935517fbe0f68",
+      "title": "障害者歯科医療設備整備補助事業（令和８年度）",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "設備・機械",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/shougaishasika080409",
+      "source": "自治体",
+      "date": "2026-07-11"
+    },
     {
       "id": "3b4e21cde93aa866",
       "title": "神奈川県事業承継補助金（令和8年度実施分）",
@@ -3033,19 +3046,6 @@
       "url": "https://www.pref.kanagawa.jp/docs/t3u/pub/byoinkyukyusya.html",
       "source": "自治体",
       "date": "2026-04-25"
-    },
-    {
-      "id": "7fc976cb03cd2ea7",
-      "title": "令和８年度東京都在宅歯科医療設備整備事業",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "設備・機械",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/zaitakusikairyousetubiseibi08",
-      "source": "自治体",
-      "date": "2026-04-11"
     }
   ]
 }
