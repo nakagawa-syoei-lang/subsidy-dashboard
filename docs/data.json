@@ -1,8 +1,21 @@
 {
-  "updated": "2026年07月27日 01:25",
-  "count": 225,
-  "total": 231,
+  "updated": "2026年07月28日 01:12",
+  "count": 158,
+  "total": 232,
   "items": [
+    {
+      "id": "6270ceb9dfaca45d",
+      "title": "中小企業高度化資金",
+      "org": "神奈川県",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "融資・貸付",
+      "url": "https://www.pref.kanagawa.jp/docs/m6c/cnt/f5780/index.html",
+      "source": "自治体",
+      "date": "2026-07-28"
+    },
     {
       "id": "c7248273e993acfe",
       "title": "病院間の患者搬送のための病院救急車活用促進事業",
@@ -74,12 +87,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月3日締切",
       "target": "",
       "category": "物価・光熱費対策",
       "url": "https://www.pref.saitama.lg.jp/a0805/kakakukoutoutaisakushien.html",
       "source": "自治体",
-      "date": "2026-07-04"
+      "date": "2026-07-04",
+      "start_date": "2026-07-13"
     },
     {
       "id": "17be8031d7a4d004",
@@ -127,12 +141,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年5月25日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0805/shoryokuka/index.html",
       "source": "自治体",
-      "date": "2026-06-30"
+      "date": "2026-06-30",
+      "start_date": "2026-07-17"
     },
     {
       "id": "a4bb4ac7f6b3f981",
@@ -140,12 +155,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年3月13日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0805/hitodebusoku/jireishuu.html",
       "source": "自治体",
-      "date": "2026-06-30"
+      "date": "2026-06-30",
+      "start_date": "2026-03-13"
     },
     {
       "id": "8428dc9612975b6b",
@@ -153,12 +169,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年2月27日締切",
       "target": "",
       "category": "設備・機械",
       "url": "https://www.pref.saitama.lg.jp/a0805/hitodebusoku/hojokin-koushin_2025.html",
       "source": "自治体",
-      "date": "2026-06-30"
+      "date": "2026-06-30",
+      "start_date": "2025-11-20"
     },
     {
       "id": "7768dc4c214bc33c",
@@ -166,12 +183,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年2月27日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0805/hitodebusoku/hojokin-shinki_2025.html",
       "source": "自治体",
-      "date": "2026-06-30"
+      "date": "2026-06-30",
+      "start_date": "2025-11-20"
     },
     {
       "id": "e24079f61cd72d41",
@@ -179,12 +197,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年2月28日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0805/hitodebusoku/hojokin_1.html",
       "source": "自治体",
-      "date": "2026-06-30"
+      "date": "2026-06-30",
+      "start_date": "2025-11-20"
     },
     {
       "id": "0bcd7f10711f855d",
@@ -192,12 +211,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年6月2日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0805/hitodebusoku/index.html",
       "source": "自治体",
-      "date": "2026-06-30"
+      "date": "2026-06-30",
+      "start_date": "2026-03-03"
     },
     {
       "id": "0f30c92f25f97d57",
@@ -313,12 +333,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年10月31日締切",
       "target": "",
       "category": "物価・光熱費対策",
       "url": "https://www.pref.saitama.lg.jp/a0803/komekakakukoutoushien.html",
       "source": "自治体",
-      "date": "2026-06-16"
+      "date": "2026-06-16",
+      "start_date": "2026-07-15"
     },
     {
       "id": "efccaf445e1de7b1",
@@ -352,12 +373,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年6月1日締切",
       "target": "",
       "category": "雇用・人材",
       "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/basic/sangyo/joseikatsuyakujourei_shishin",
       "source": "自治体",
-      "date": "2026-06-02"
+      "date": "2026-06-02",
+      "start_date": "2026-06-01"
     },
     {
       "id": "1e594bbc4b5cdfae",
@@ -1444,12 +1466,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年6月1日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/chushou/shoko/chiiki/jyosei/index.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-06-01"
     },
     {
       "id": "36051ecd63ff082f",
@@ -1496,12 +1519,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月1日締切",
       "target": "",
       "category": "雇用・人材",
       "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/basic/sangyo/joseikatsuyakujourei",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-07-01"
     },
     {
       "id": "4341858d6b78aa03",
@@ -1509,12 +1533,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年2月25日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/tourism/kakusyu",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2023-05-07"
     },
     {
       "id": "6ec1aea8449c90b4",
@@ -1535,12 +1560,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月27日締切",
       "target": "",
       "category": "融資・貸付",
       "url": "https://www.my.metro.tokyo.lg.jp/business/search/?category=188508&utm_source=search&utm_medium=internal&utm_id=sidebar",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-07-09"
     },
     {
       "id": "d83ed4fd04d6e4af",
@@ -1548,12 +1574,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月15日締切",
       "target": "",
       "category": "医療・福祉",
       "url": "https://www.my.metro.tokyo.lg.jp/channel/ch_welfare-careers?utm_source=search&utm_medium=internal&utm_id=sidebar",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-03-18"
     },
     {
       "id": "bdabafeca1e137a7",
@@ -1561,12 +1588,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月21日締切",
       "target": "",
       "category": "融資・貸付",
       "url": "https://www.metro.tokyo.lg.jp/search?keyword=&category=163887",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-07-21"
     },
     {
       "id": "5fbd0be4b9fd3636",
@@ -1587,12 +1615,13 @@
       "org": "千葉県商工労働部",
       "pref": "千葉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月10日締切",
       "target": "",
       "category": "融資・貸付",
       "url": "https://www.pref.chiba.lg.jp/keishi/chuushou-yuushi/yuushiseido/chuushou/index.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2023-09-12"
     },
     {
       "id": "80cc233b6d3e6460",
@@ -1600,12 +1629,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年6月10日締切",
       "target": "",
       "category": "雇用・人材",
       "url": "https://www.pref.saitama.lg.jp/a0801/r8shisaku.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-06-10"
     },
     {
       "id": "4bcf85427cb1a728",
@@ -1613,12 +1643,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年3月5日締切",
       "target": "",
       "category": "雇用・人材",
       "url": "https://www.pref.saitama.lg.jp/a0801/senryaku04.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-03-05"
     },
     {
       "id": "f2e45a23db4fb1c8",
@@ -1626,12 +1657,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年2月19日締切",
       "target": "",
       "category": "雇用・人材",
       "url": "https://www.pref.saitama.lg.jp/a0801/senryaku29.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2025-02-19"
     },
     {
       "id": "3aaf7594c0e7ee2c",
@@ -1639,12 +1671,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和5年7月31日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0803/tokkou-shienkin.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-06-16"
     },
     {
       "id": "4431edfc78097ccc",
@@ -1652,12 +1685,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年7月24日締切",
       "target": "",
       "category": "医療・福祉",
       "url": "https://www.pref.saitama.lg.jp/a0603/kaigo-net/index.html",
       "source": "自治体",
-      "date": "2026-05-29"
+      "date": "2026-05-29",
+      "start_date": "2026-07-24"
     },
     {
       "id": "176c38114c65c335",
@@ -2903,12 +2937,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年5月25日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.pref.saitama.lg.jp/a0805/shoryokuka/sinnkidounyu_20260525.html",
       "source": "自治体",
-      "date": "2026-05-26"
+      "date": "2026-05-26",
+      "start_date": "2026-07-17"
     },
     {
       "id": "8c5b48eca2342932",
@@ -2916,12 +2951,13 @@
       "org": "埼玉県産業労働部",
       "pref": "埼玉県",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年5月25日締切",
       "target": "",
       "category": "設備・機械",
       "url": "https://www.pref.saitama.lg.jp/a0805/shoryokuka/setsubikousin_20260525.html",
       "source": "自治体",
-      "date": "2026-05-26"
+      "date": "2026-05-26",
+      "start_date": "2026-07-17"
     },
     {
       "id": "ffb129fd1ee91c6b",
@@ -3066,12 +3102,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年4月30日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/energy/menu/gx",
       "source": "自治体",
-      "date": "2026-05-01"
+      "date": "2026-05-01",
+      "start_date": "2024-10-01"
     }
   ]
 }
