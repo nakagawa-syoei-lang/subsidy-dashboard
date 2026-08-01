@@ -1,8 +1,22 @@
 {
-  "updated": "2026年07月31日 01:21",
+  "updated": "2026年08月01日 01:23",
   "count": 158,
-  "total": 231,
+  "total": 232,
   "items": [
+    {
+      "id": "c2e02097a003a7db",
+      "title": "ＧＸ関連産業創出へ向けた早期社会実装化支援事業",
+      "org": "東京都産業労働局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "令和8年4月30日締切",
+      "target": "",
+      "category": "補助金・助成金（一般）",
+      "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/energy/menu/gx",
+      "source": "自治体",
+      "date": "2026-08-01",
+      "start_date": "2024-10-01"
+    },
     {
       "id": "6270ceb9dfaca45d",
       "title": "中小企業高度化資金",
