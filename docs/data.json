@@ -1,7 +1,7 @@
 {
-  "updated": "2026年08月09日 00:39",
+  "updated": "2026年08月10日 00:42",
   "count": 158,
-  "total": 232,
+  "total": 231,
   "items": [
     {
       "id": "c2e02097a003a7db",
@@ -3096,19 +3096,6 @@
       "source": "自治体",
       "date": "2026-05-12",
       "start_date": "2026-04-09"
-    },
-    {
-      "id": "7b80b5f1468a2445",
-      "title": "医療介護総合確保促進法に基づく神奈川県計画（令和9年度分）へ位置づける事業提案を募集します！",
-      "org": "神奈川県医療政策",
-      "pref": "神奈川県",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "医療・福祉",
-      "url": "https://www.pref.kanagawa.jp/docs/f6z/cnt/r9idea.html",
-      "source": "自治体",
-      "date": "2026-05-11"
     }
   ]
 }
