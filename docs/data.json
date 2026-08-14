@@ -1,7 +1,7 @@
 {
-  "updated": "2026年08月13日 00:49",
+  "updated": "2026年08月14日 00:48",
   "count": 158,
-  "total": 228,
+  "total": 226,
   "items": [
     {
       "id": "7b80b5f1468a2445",
@@ -3025,34 +3025,6 @@
       "source": "自治体",
       "date": "2026-05-19",
       "start_date": "2026-07-01"
-    },
-    {
-      "id": "63fb6a7d06ed223a",
-      "title": "募集前課題解決型技術開発促進事業都市課題の解決に向けた製品・サービスの試作品開発・改良費用に利用できる助成金【申請受付期間】第1回：令和8年6月4日(木)～7月3日(金)17時まで第2回：令和8年10月9日(金)～11月13日(金)17時ま",
-      "org": "東京都中小企業振興公社",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "令和8年6月15日締切",
-      "target": "",
-      "category": "創業・起業",
-      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kadai-kaihatsu/index.html",
-      "source": "自治体",
-      "date": "2026-05-15",
-      "start_date": "2026-06-04"
-    },
-    {
-      "id": "879af06fc69aecc6",
-      "title": "令和8年度「課題解決型製品・サービス等の販路拡大助成」の募集要項を公開しました！",
-      "org": "東京都中小企業振興公社",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "令和8年7月10日締切",
-      "target": "",
-      "category": "販路拡大",
-      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kadai-hanro/index.html",
-      "source": "自治体",
-      "date": "2026-05-15",
-      "start_date": "2026-07-10"
     }
   ]
 }
