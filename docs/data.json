@@ -1,8 +1,48 @@
 {
-  "updated": "2026年08月21日 00:29",
-  "count": 158,
-  "total": 229,
+  "updated": "2026年08月22日 00:26",
+  "count": 226,
+  "total": 232,
   "items": [
+    {
+      "id": "ffb129fd1ee91c6b",
+      "title": "”ものづくり”を支える「かながわ中小企業モデル工場」を指定！",
+      "org": "神奈川県中小企業支援課",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "設備・機械",
+      "url": "https://www.pref.kanagawa.jp/docs/jf2/prs/r0344243.html",
+      "source": "自治体",
+      "date": "2026-08-22"
+    },
+    {
+      "id": "6273680e8a01e1ef",
+      "title": "「KOUGEI EXPO in KANAGAWA（第43回伝統的工芸品月間国民会議全国大会）」開催運営等業務委託に係る公募型プロポーザルの実施について",
+      "org": "神奈川県中小企業支援課",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "令和8年5月1日締切",
+      "target": "",
+      "category": "補助金・助成金（一般）",
+      "url": "https://www.pref.kanagawa.jp/docs/jf2/cnt/kougei_expo/koubo.html",
+      "source": "自治体",
+      "date": "2026-08-22"
+    },
+    {
+      "id": "496815621e5f226f",
+      "title": "第1回募集中事業承継を契機とした成長支援事業（販路開拓コース）事業承継後の後継者による新規販路開拓事業を、東京都の助成金で支援【申請受付期間】第1回：令和8年7月1日から7月31日16時まで第2回：令和8年10月13日から11月12日16時",
+      "org": "東京都中小企業振興公社",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "令和8年7月1日締切",
+      "target": "",
+      "category": "販路拡大",
+      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shokei-seicho-hanro/index.html",
+      "source": "自治体",
+      "date": "2026-08-22",
+      "start_date": "2026-07-01"
+    },
     {
       "id": "63fb6a7d06ed223a",
       "title": "第2回募集前課題解決型製品・サービス等の試作品開発・改良助成都市課題（安全安心・高齢者・介護・DX・暑さ等）の解決へ向けた製品・サービスの試作品開発・改良費用に利用できる助成金【申請受付期間】第1回:令和8年6月4日(木)～7月3日(金)1",
