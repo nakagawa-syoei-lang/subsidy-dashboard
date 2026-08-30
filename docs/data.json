@@ -1,8 +1,21 @@
 {
-  "updated": "2026年08月29日 04:23",
+  "updated": "2026年08月30日 01:49",
   "count": 226,
-  "total": 225,
+  "total": 226,
   "items": [
+    {
+      "id": "1e594bbc4b5cdfae",
+      "title": "東京都医療機関等物価高騰緊急対策支援金（令和８年度）",
+      "org": "東京都保健医療局",
+      "pref": "東京都",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "物価・光熱費対策",
+      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/iryo-bukka4",
+      "source": "自治体",
+      "date": "2026-08-30"
+    },
     {
       "id": "873c99da40e6ca13",
       "title": "病院経営緊急支援金",
@@ -1940,12 +1953,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和7年5月29日締切",
       "target": "",
       "category": "創業・起業",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/kaigoneeds/index.html",
       "source": "自治体",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "start_date": "2025-05-29"
     },
     {
       "id": "dfd74e85fe3c6407",
@@ -2117,12 +2131,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年4月22日締切",
       "target": "",
       "category": "補助金・助成金（一般）",
       "url": "https://www.tokyo-kosha.or.jp/chizai/josei/shohyo/index.html",
       "source": "自治体",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "start_date": "2026-04-22"
     },
     {
       "id": "4b0e3b0c92a651c9",
@@ -2363,12 +2378,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年9月1日締切",
       "target": "",
       "category": "研究開発",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/shinseihin.html",
       "source": "自治体",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "start_date": "2026-03-27"
     },
     {
       "id": "c97b4164461d126f",
