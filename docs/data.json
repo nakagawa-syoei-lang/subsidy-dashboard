@@ -1,6 +1,6 @@
 {
-  "updated": "2026年09月02日 01:31",
-  "count": 226,
+  "updated": "2026年09月03日 01:35",
+  "count": 158,
   "total": 226,
   "items": [
     {
@@ -9,12 +9,13 @@
       "org": "東京都産業労働局",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年6月1日締切",
       "target": "",
       "category": "雇用・人材",
       "url": "https://www.sangyo-rodo.metro.tokyo.lg.jp/basic/sangyo/joseikatsuyakujourei_shishin",
       "source": "自治体",
-      "date": "2026-09-02"
+      "date": "2026-09-02",
+      "start_date": "2026-06-01"
     },
     {
       "id": "1e594bbc4b5cdfae",
