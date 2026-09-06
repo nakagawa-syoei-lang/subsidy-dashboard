@@ -1,6 +1,6 @@
 {
-  "updated": "2026年09月05日 01:30",
-  "count": 158,
+  "updated": "2026年09月06日 01:24",
+  "count": 226,
   "total": 226,
   "items": [
     {
@@ -2074,12 +2074,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年9月1日締切",
       "target": "",
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/keiei_togo/index.html",
       "source": "自治体",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "start_date": "2026-09-01"
     },
     {
       "id": "df380da365f30f72",
