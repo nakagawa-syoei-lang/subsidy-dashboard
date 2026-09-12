@@ -1,7 +1,7 @@
 {
-  "updated": "2026年09月11日 01:35",
-  "count": 63,
-  "total": 226,
+  "updated": "2026年09月12日 01:40",
+  "count": 226,
+  "total": 224,
   "items": [
     {
       "id": "8745278989ae7b5d",
@@ -1818,12 +1818,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年5月14日締切",
       "target": "",
       "category": "設備・機械",
       "url": "https://www.tokyo-kosha.or.jp/support/shien/zeroemi/projects/josei.html",
       "source": "自治体",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "start_date": "2026-05-14"
     },
     {
       "id": "eaf197e28f478d34",
@@ -2238,12 +2239,13 @@
       "org": "東京都中小企業振興公社",
       "pref": "東京都",
       "amount": "",
-      "deadline": "",
+      "deadline": "令和8年9月11日締切",
       "target": "",
       "category": "省エネ・環境",
       "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/jyudoukitsuen-boushitaisaku.html",
       "source": "自治体",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "start_date": "2026-09-11"
     },
     {
       "id": "d2a87755bb04c1f9",
@@ -2982,32 +2984,6 @@
       "source": "自治体",
       "date": "2026-06-16",
       "start_date": "2026-07-15"
-    },
-    {
-      "id": "efccaf445e1de7b1",
-      "title": "医療機関におけるＡＩ技術活用促進事業の活用事例",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "研究開発",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/ai_katuyou",
-      "source": "自治体",
-      "date": "2026-06-13"
-    },
-    {
-      "id": "ec7f93f0a4718225",
-      "title": "診療所診療情報デジタル推進事業",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "IT・デジタル",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/h_gaiyou/clinic_digital_suishin.html",
-      "source": "自治体",
-      "date": "2026-06-13"
     }
   ]
 }
