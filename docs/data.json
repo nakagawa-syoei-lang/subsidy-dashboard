@@ -1,7 +1,7 @@
 {
-  "updated": "2026年09月14日 01:48",
+  "updated": "2026年09月15日 01:59",
   "count": 158,
-  "total": 226,
+  "total": 224,
   "items": [
     {
       "id": "efccaf445e1de7b1",
@@ -2983,33 +2983,6 @@
       "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/jigyo_information",
       "source": "自治体",
       "date": "2026-06-18"
-    },
-    {
-      "id": "e45bb886c0b31524",
-      "title": "医療分野における業務効率化・職場環境改善支援事業",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "省エネ・環境",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/gyoumukouritsuka",
-      "source": "自治体",
-      "date": "2026-06-16"
-    },
-    {
-      "id": "f00c3e17b98c930b",
-      "title": "埼玉県加工用米等価格高騰対策支援金について",
-      "org": "埼玉県産業労働部",
-      "pref": "埼玉県",
-      "amount": "",
-      "deadline": "令和8年10月31日締切",
-      "target": "",
-      "category": "物価・光熱費対策",
-      "url": "https://www.pref.saitama.lg.jp/a0803/komekakakukoutoushien.html",
-      "source": "自治体",
-      "date": "2026-06-16",
-      "start_date": "2026-07-15"
     }
   ]
 }
