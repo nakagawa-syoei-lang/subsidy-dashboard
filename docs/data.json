@@ -1,7 +1,7 @@
 {
-  "updated": "2026年09月16日 01:49",
+  "updated": "2026年09月17日 01:53",
   "count": 158,
-  "total": 226,
+  "total": 225,
   "items": [
     {
       "id": "e45bb886c0b31524",
@@ -2997,19 +2997,6 @@
       "url": "https://www.pref.kanagawa.jp/docs/t3u/bukkakoutou2025/r8_6_hosei_bukka_tokubetukouatsu.html",
       "source": "自治体",
       "date": "2026-06-23"
-    },
-    {
-      "id": "c8b2ca8fedad1304",
-      "title": "医療政策部 新規事業等（医療機関向け）",
-      "org": "東京都保健医療局",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "医療・福祉",
-      "url": "https://www.hokeniryo.metro.tokyo.lg.jp/iryo/jigyo/jigyo_information",
-      "source": "自治体",
-      "date": "2026-06-18"
     }
   ]
 }
