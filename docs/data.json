@@ -1,7 +1,7 @@
 {
-  "updated": "2026年09月21日 01:48",
+  "updated": "2026年09月22日 01:58",
   "count": 159,
-  "total": 227,
+  "total": 226,
   "items": [
     {
       "id": "86254906ba0a9a0b",
@@ -3010,19 +3010,6 @@
       "source": "自治体",
       "date": "2026-06-25",
       "start_date": "2026-07-31"
-    },
-    {
-      "id": "6d99a2becd56067b",
-      "title": "物価高騰の影響を受ける特別高圧受電病院の電気代に対する支援について",
-      "org": "神奈川県医療政策",
-      "pref": "神奈川県",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "物価・光熱費対策",
-      "url": "https://www.pref.kanagawa.jp/docs/t3u/bukkakoutou2025/r8_6_hosei_bukka_tokubetukouatsu.html",
-      "source": "自治体",
-      "date": "2026-06-23"
     }
   ]
 }
