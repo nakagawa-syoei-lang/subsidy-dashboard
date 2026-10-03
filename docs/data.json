@@ -1,7 +1,7 @@
 {
-  "updated": "2026年10月02日 02:39",
+  "updated": "2026年10月03日 02:26",
   "count": 158,
-  "total": 227,
+  "total": 225,
   "items": [
     {
       "id": "4f277ae5de1f237f",
@@ -3002,34 +3002,6 @@
       "url": "https://www.pref.kanagawa.jp/docs/jf2/r8_shoukei.html",
       "source": "自治体",
       "date": "2026-07-10"
-    },
-    {
-      "id": "89f5a836156b74d3",
-      "title": "埼玉県中東情勢に伴う価格高騰・供給不足緊急支援事業",
-      "org": "埼玉県産業労働部",
-      "pref": "埼玉県",
-      "amount": "",
-      "deadline": "令和8年7月3日締切",
-      "target": "",
-      "category": "物価・光熱費対策",
-      "url": "https://www.pref.saitama.lg.jp/a0805/kakakukoutoutaisakushien.html",
-      "source": "自治体",
-      "date": "2026-07-04",
-      "start_date": "2026-07-13"
-    },
-    {
-      "id": "17be8031d7a4d004",
-      "title": "募集中第6回 中小企業特別高圧電力・工業用LPガス価格高騰緊急対策事業支援金【目的】特別高圧電力や工業用LPガスを使用する中小企業者等の負担軽減に向けた緊急対策として、重点支援地方交付金を活用した支援金を交付【申請受付期間】令和8年4月9日",
-      "org": "東京都中小企業振興公社",
-      "pref": "東京都",
-      "amount": "",
-      "deadline": "令和8年7月31日締切",
-      "target": "",
-      "category": "物価・光熱費対策",
-      "url": "https://www.tokyo-kosha.or.jp/support/josei/jigyo/tokkolpg/shienkin6th.html",
-      "source": "自治体",
-      "date": "2026-07-04",
-      "start_date": "2026-07-31"
     }
   ]
 }
