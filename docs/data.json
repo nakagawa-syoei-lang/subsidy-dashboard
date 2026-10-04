@@ -1,8 +1,22 @@
 {
-  "updated": "2026年10月03日 02:26",
+  "updated": "2026年10月04日 02:55",
   "count": 158,
-  "total": 225,
+  "total": 226,
   "items": [
+    {
+      "id": "89f5a836156b74d3",
+      "title": "埼玉県中東情勢に伴う価格高騰・供給不足緊急支援事業補助金",
+      "org": "埼玉県産業労働部",
+      "pref": "埼玉県",
+      "amount": "",
+      "deadline": "令和9年3月17日締切",
+      "target": "",
+      "category": "物価・光熱費対策",
+      "url": "https://www.pref.saitama.lg.jp/a0805/kakakukoutoutaisakushien.html",
+      "source": "自治体",
+      "date": "2026-10-04",
+      "start_date": "2026-09-29"
+    },
     {
       "id": "4f277ae5de1f237f",
       "title": "令和7年度神奈川県小規模事業者デジタル化支援推進事業費補助金について",
