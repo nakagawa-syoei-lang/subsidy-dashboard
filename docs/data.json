@@ -1,7 +1,7 @@
 {
-  "updated": "2026年10月21日 02:07",
+  "updated": "2026年10月22日 02:01",
   "count": 158,
-  "total": 227,
+  "total": 226,
   "items": [
     {
       "id": "f4bc7482815559ad",
@@ -3017,19 +3017,6 @@
       "url": "https://www.pref.kanagawa.jp/docs/t3u/pub/byoinkyukyusya.html",
       "source": "自治体",
       "date": "2026-07-26"
-    },
-    {
-      "id": "7a47632aed09ede7",
-      "title": "令和7年度中小企業生産性向上促進事業費補助金について",
-      "org": "神奈川県中小企業支援課",
-      "pref": "神奈川県",
-      "amount": "",
-      "deadline": "令和7年3月28日締切",
-      "target": "",
-      "category": "補助金・助成金（一般）",
-      "url": "https://www.pref.kanagawa.jp/docs/m2w/seisansei/r7.html",
-      "source": "自治体",
-      "date": "2026-07-23"
     }
   ]
 }
