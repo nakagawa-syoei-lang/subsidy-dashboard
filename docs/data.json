@@ -1,7 +1,7 @@
 {
-  "updated": "2026年10月26日 01:53",
+  "updated": "2026年10月27日 02:31",
   "count": 158,
-  "total": 227,
+  "total": 226,
   "items": [
     {
       "id": "c7248273e993acfe",
@@ -3017,19 +3017,6 @@
       "source": "自治体",
       "date": "2026-08-01",
       "start_date": "2024-10-01"
-    },
-    {
-      "id": "6270ceb9dfaca45d",
-      "title": "中小企業高度化資金",
-      "org": "神奈川県",
-      "pref": "神奈川県",
-      "amount": "",
-      "deadline": "",
-      "target": "",
-      "category": "融資・貸付",
-      "url": "https://www.pref.kanagawa.jp/docs/m6c/cnt/f5780/index.html",
-      "source": "自治体",
-      "date": "2026-07-28"
     }
   ]
 }
