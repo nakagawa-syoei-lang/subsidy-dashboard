@@ -1,8 +1,21 @@
 {
-  "updated": "2026年10月27日 02:31",
+  "updated": "2026年10月28日 02:39",
   "count": 158,
-  "total": 226,
+  "total": 227,
   "items": [
+    {
+      "id": "6270ceb9dfaca45d",
+      "title": "中小企業高度化資金",
+      "org": "神奈川県",
+      "pref": "神奈川県",
+      "amount": "",
+      "deadline": "",
+      "target": "",
+      "category": "融資・貸付",
+      "url": "https://www.pref.kanagawa.jp/docs/m6c/cnt/f5780/index.html",
+      "source": "自治体",
+      "date": "2026-10-28"
+    },
     {
       "id": "c7248273e993acfe",
       "title": "病院間の患者搬送のための病院救急車活用促進事業",
